@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-05-16T17:11:51 IST" name="Default suite" finished-at="2024-05-16T17:11:54 IST" duration-ms="3417">
+    <groups>
+    </groups>
+    <test started-at="2024-05-16T17:11:51 IST" name="Default test" finished-at="2024-05-16T17:11:54 IST" duration-ms="3417">
+      <class name="APITestFacctView.FacctViewMatchCall">
+        <test-method signature="test_numberofcircuit()[pri:0, instance:APITestFacctView.FacctViewMatchCall@3bb9a3ff]" started-at="2024-05-16T17:11:51 IST" name="test_numberofcircuit" finished-at="2024-05-16T17:11:54 IST" duration-ms="3362" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_numberofcircuit -->
+      </class> <!-- APITestFacctView.FacctViewMatchCall -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
