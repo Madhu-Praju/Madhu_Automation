@@ -13,8 +13,9 @@ import io.qameta.allure.testng.AllureTestNg;
 @CucumberOptions(
         features = {"src/test/resources/AppFeature/"},
         glue = {"stepDefenition", "AppHooks"},
+        tags = "@OFACFilterDBValidation",
         //tags = "@Applyingoffilter",
-        tags = "@OFACADVANCEFILTER",
+        //tags = "@OFACADVANCEFILTER",
         //tags = "@UKSANCTIONSADVANCEFILTER",
         
 

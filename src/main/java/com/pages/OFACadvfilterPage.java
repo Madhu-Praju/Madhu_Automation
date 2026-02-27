@@ -25,8 +25,8 @@ public class OFACadvfilterPage {
     private By Regulatorylist = By.xpath("(//span[text()='Regulatory list'])");
     private By Pagination = By.xpath("//button[@id='basic-button']");
     private By Pagevalue = By.xpath("//li[text()='100']");
-    //private By Ofac = By.xpath("//div[text()='OFAC']");
-    private By OfacEn = By.xpath("//div[text()='OFAC Enhanced']");
+    private By Ofac = By.xpath("//div[text()='OFAC']");
+    //private By OfacEn = By.xpath("//div[text()='OFAC Enhanced']");
 
     // Tab and Filter Locators
     private By Active = By.xpath("(//button[@id='simple-tab-0'])[2]");
@@ -91,7 +91,12 @@ public class OFACadvfilterPage {
 
     private By Prname = By.xpath("//input[@id='advance-filter-list-561-Related']");
 
+    // Pagination and Count Locators
+    private By PaginationTotal = By.xpath("(//p[contains(text(),' of ')]//following-sibling::p | //span[contains(text(),' of ')])[last()]");
+    private By FilteredCountText = By.xpath("//div[contains(@class,'MuiTablePagination')]//p[last()]");
+
     WebDriver driver;
+    private int uiFilteredCount;
 
     public OFACadvfilterPage(WebDriver driver) {
         this.driver = driver;
@@ -135,7 +140,7 @@ public class OFACadvfilterPage {
     public void select_ofac_list() throws InterruptedException {
         driver.findElement(Pagination).click();Thread.sleep(2000);
         driver.findElement(Pagevalue).click();Thread.sleep(2000);
-        driver.findElement(OfacEn).click();Thread.sleep(3000);
+        driver.findElement(Ofac).click();Thread.sleep(3000);
     }
 
     public void apply_ofac_filter(String address, String citizenship, String startdate, 
@@ -1488,57 +1493,115 @@ public class OFACadvfilterPage {
         //  }
      }
 
-    public void check_download_status_1() throws InterruptedException {
-        driver.findElement(Downloads).click();Thread.sleep(3000);
-        driver.findElement(Refresh).click();Thread.sleep(3000);
-        for (int i = 0;i<20;i++) {
-            driver.findElement(Refresh).click();Thread.sleep(3000);
+    // public void check_download_status_1() throws InterruptedException {
+    //     driver.findElement(Downloads).click();Thread.sleep(3000);
+    //     driver.findElement(Refresh).click();Thread.sleep(3000);
+    //     for (int i = 0;i<20;i++) {
+    //         driver.findElement(Refresh).click();Thread.sleep(3000);
 
             
-        }
+    //     }
 
 
+    //     try {
+    //         boolean rtype = driver.findElement(Activerecord).isDisplayed();
+    //         if (rtype == true) {
+    //             System.out.println("Active record found - waiting for download to complete");
+
+    //             int maxAttempts = 60;
+    //             boolean downloadSuccess = false;
+
+    //             for (int i = 0; i < maxAttempts; i++) {
+    //                 driver.findElement(Refresh).click();Thread.sleep(3000);
+
+    //                 try {
+    //                     boolean successStatus = driver.findElement(Success).isDisplayed();
+    //                     if (successStatus) {
+    //                         System.out.println("Status is Success - downloading file");
+    //                         driver.findElement(Download).click();
+    //                         Thread.sleep(2000);
+    //                         System.out.println("File downloaded successfully");
+    //                         downloadSuccess = true;
+    //                         break;
+    //                     }
+    //                 } catch (Exception e1) {
+    //                     try {
+    //                         boolean failedStatus = driver.findElement(Failed).isDisplayed();
+    //                         if (failedStatus) {
+    //                             System.out.println("Download Failed");
+    //                             break;
+    //                         }
+    //                     } catch (Exception e2) {
+    //                         System.out.println("Download in progress... waiting (" + (i+1) + "/" + maxAttempts + ")");
+    //                     }
+    //                 }
+    //             }
+
+    //             if (!downloadSuccess) {
+    //                 System.out.println("Download Failed - Timeout reached");
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         System.out.println("No active records found");
+    //     }
+    // }
+
+
+    /**
+     * Apply Address Country filter with a specific country name.
+     */
+    public void apply_address_country_filter(String country) throws InterruptedException {
+        driver.findElement(Filter).click();
+        Thread.sleep(2000);
+        driver.findElement(AddressCountry).click();
+        driver.findElement(AddressSearch).click();
+        driver.findElement(AddressSearch).sendKeys(country);
+        Thread.sleep(1000);
+        driver.findElement(Addresfilter).click();
+        Thread.sleep(500);
+        driver.findElement(Apply).click();
+        Thread.sleep(3000);
+    }
+
+    /**
+     * Captures the filtered record count from the UI pagination text.
+     * Reads the "1-10 of 35" text and extracts the total count after "of".
+     * Works with any number — dynamic and format-independent.
+     */
+    public int capture_filtered_count() throws InterruptedException {
+        Thread.sleep(3000);
         try {
-            boolean rtype = driver.findElement(Activerecord).isDisplayed();
-            if (rtype == true) {
-                System.out.println("Active record found - waiting for download to complete");
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            String allText = (String) js.executeScript("return document.body.innerText;");
 
-                int maxAttempts = 60;
-                boolean downloadSuccess = false;
+            // Match pattern: "1-10 of 35" or "1 - 10 of 18708" etc.
+            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("(\\d+)\\s*-\\s*(\\d+)\\s+of\\s+(\\d+)");
+            java.util.regex.Matcher matcher = pattern.matcher(allText);
 
-                for (int i = 0; i < maxAttempts; i++) {
-                    driver.findElement(Refresh).click();Thread.sleep(3000);
+            // Find the LAST match on the page (pagination is at the bottom)
+            String lastCount = null;
+            while (matcher.find()) {
+                lastCount = matcher.group(3);
+            }
 
-                    try {
-                        boolean successStatus = driver.findElement(Success).isDisplayed();
-                        if (successStatus) {
-                            System.out.println("Status is Success - downloading file");
-                            driver.findElement(Download).click();
-                            Thread.sleep(2000);
-                            System.out.println("File downloaded successfully");
-                            downloadSuccess = true;
-                            break;
-                        }
-                    } catch (Exception e1) {
-                        try {
-                            boolean failedStatus = driver.findElement(Failed).isDisplayed();
-                            if (failedStatus) {
-                                System.out.println("Download Failed");
-                                break;
-                            }
-                        } catch (Exception e2) {
-                            System.out.println("Download in progress... waiting (" + (i+1) + "/" + maxAttempts + ")");
-                        }
-                    }
-                }
-
-                if (!downloadSuccess) {
-                    System.out.println("Download Failed - Timeout reached");
-                }
+            if (lastCount != null) {
+                uiFilteredCount = Integer.parseInt(lastCount);
+                System.out.println("[OFACadvfilterPage] UI Filtered Count: " + uiFilteredCount);
+                return uiFilteredCount;
             }
         } catch (Exception e) {
-            System.out.println("No active records found");
+            System.out.println("[OFACadvfilterPage] Error capturing count: " + e.getMessage());
         }
+
+        System.out.println("[OFACadvfilterPage] Could not capture filtered count from pagination");
+        return -1;
+    }
+
+    /**
+     * Returns the last captured UI filtered count.
+     */
+    public int getUiFilteredCount() {
+        return uiFilteredCount;
     }
 
 }
