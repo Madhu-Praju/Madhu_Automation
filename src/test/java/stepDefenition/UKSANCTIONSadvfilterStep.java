@@ -2,13 +2,18 @@ package stepDefenition;
 
 import java.util.Properties;
 
+import org.testng.Assert;
+
+import com.mongodb.client.model.Filters;
 import com.pages.UKSANCTIONSadvfilterPage;
 import com.qea.factory.DriverFactory;
+import com.qea.utils.MongoDBUtil;
 import com.qea.utils.configReader;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 
 public class UKSANCTIONSadvfilterStep {
 
@@ -20,9 +25,12 @@ public class UKSANCTIONSadvfilterStep {
     // UK SANCTIONS
 	String designateddate = "29/07/2012";
 	String idtype = "IMONumber";
-	String programsource = "UK|UN";
+	String programname = "UK|UN";
 	String regimename = "The Iran (Sanctions) Regulations 2023";
     String type = "Individual";
+
+    //Wrong Input
+    String id = "Adhar";
 
     UKSANCTIONSadvfilterPage uksanctionsPage = new UKSANCTIONSadvfilterPage(DriverFactory.getDriver());
 
@@ -57,7 +65,7 @@ public class UKSANCTIONSadvfilterStep {
 
     @And("Apply Filter in all tabs 2")
     public void apply_filter_in_all_tabs_2() throws InterruptedException {
-        uksanctionsPage.apply_uksanctions_filter(designateddate, idtype, programsource, regimename, type);
+        uksanctionsPage.apply_uksanctions_filter(designateddate, idtype, programname, regimename, type, id);
     }
 
     @And("Check the status 2")

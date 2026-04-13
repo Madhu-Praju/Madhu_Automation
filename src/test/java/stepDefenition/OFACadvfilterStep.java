@@ -31,6 +31,9 @@ public class OFACadvfilterStep {
     String program = "CAR";
     String type = "Individual";
 
+    // Wrong Input Data
+    String add = "Karnataka";
+
     OFACadvfilterPage ofacPage = new OFACadvfilterPage(DriverFactory.getDriver());
 
     Properties prop;
@@ -64,58 +67,11 @@ public class OFACadvfilterStep {
 
     @And("Apply Filter in all tabs 1")
     public void apply_filter_in_all_tabs_1() throws InterruptedException {
-        ofacPage.apply_ofac_filter(address, citizenship, startdate, enddate, nationality, program, type);
+        ofacPage.apply_ofac_filter(address, citizenship, startdate, enddate, nationality, program, type, add);
     }
 
-    // @And("Check the status 1")
-    // public void check_the_status_1() throws InterruptedException {
-    //     ofacPage.check_download_status_1();
-    // }
-
-    // --- DB Validation Steps ---
-
-    private int uiCount;
-    private long dbCount;
-
-    @And("Apply Address Country filter with {string}")
-    public void apply_address_country_filter(String country) throws InterruptedException {
-        ofacPage.apply_address_country_filter(country);
-    }
-
-    @And("Capture the filtered record count from UI")
-    public void capture_filtered_record_count_from_ui() throws InterruptedException {
-        uiCount = ofacPage.capture_filtered_count();
-        System.out.println("[Step] UI Filtered Count: " + uiCount);
-    }
-
-    @And("Fetch the record count from MongoDB for address country {string}")
-    public void fetch_record_count_from_mongodb(String country) {
-        MongoDBUtil mongoUtil = new MongoDBUtil();
-        try {
-            mongoUtil.connect();
-            String collectionName = prop.getProperty("mongo.collection.ruleclass", "facctumRegulatoryList");
-
-            // Use findDocuments instead of getCount to avoid countDocuments() compatibility issues
-            java.util.List<java.util.Map<String, String>> results = mongoUtil.findDocuments(collectionName,
-                Filters.and(
-                    Filters.eq("listName", "OFAC"),
-                    Filters.eq("statusId", 2000),
-                    Filters.regex("addressDetailsList.countryName", country, "i")
-                ),
-                java.util.Arrays.asList("primaryName")
-            );
-            dbCount = results.size();
-            System.out.println("[Step] MongoDB Count for OFAC Active records with address country '" + country + "': " + dbCount);
-        } finally {
-            mongoUtil.disconnect();
-        }
-    }
-
-    @Then("Validate UI count matches MongoDB count")
-    public void validate_ui_count_matches_mongodb_count() {
-        System.out.println("[Validation] UI Count: " + uiCount + " | DB Count: " + dbCount);
-        Assert.assertEquals(uiCount, (int) dbCount,
-            "UI filtered count (" + uiCount + ") does not match MongoDB count (" + dbCount + ")");
-        System.out.println("[Validation] PASSED - UI count matches MongoDB count: " + uiCount);
+    @And("Check the status 1")
+    public void check_the_status_1() throws InterruptedException {
+        ofacPage.check_download_status_1();
     }
 }
