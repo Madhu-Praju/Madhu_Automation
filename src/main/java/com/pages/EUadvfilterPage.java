@@ -10,7 +10,7 @@ import com.qea.utils.configReader;
 
 import java.util.Properties;
 
-public class UKSANCTIONSadvfilterPage {
+public class EUadvfilterPage {
 
     // Login Locators
     private By Welcomepage = By.xpath("//div[text()='Welcome']");
@@ -28,8 +28,7 @@ public class UKSANCTIONSadvfilterPage {
     private By Regulatorylist = By.xpath("(//span[text()='Regulatory list'])");
     private By Pagination = By.xpath("//button[@id='basic-button']");
     private By Pagevalue = By.xpath("//li[text()='100']");
-    private By UKSanctions = By.xpath("//div[text()='UK SANCTIONS']");
-
+    private By Eu = By.xpath("//div[text()='EU']");
 
     // Tab and Filter Locators
     private By Active = By.xpath("(//button[@id='simple-tab-0'])[2]");
@@ -51,36 +50,32 @@ public class UKSANCTIONSadvfilterPage {
     private By DError0 = By.xpath("//button[@aria-label='Error (0 )']");
     private By Filter = By.xpath("(//button[@id='record-table-filter-btn'])");
 
-    // UK SANCTIONS Filter Locators
+    // OFAC Filter Locators
     private By Close = By.xpath("//button[text()='CLOSE']");
     private By Clearall = By.xpath("//button[text()='CLEAR ALL']");
     private By Nofilter = By.xpath("//div[text()='No filters selected']");
     private By Nodata = By.xpath("//h5[text()='No data available']");
+
+    private By Citizencountry = By.xpath("(//span[text()='Citizenship Country'])[1]");
+    private By CitizenSearch = By.xpath("(//input[@placeholder='Search citizenship country'])");
+    private By Citizenfilter = By.xpath("//input[@id='advance-filter-list-select-all-citizenshipDetailsList.countryName']");
     private By Designateddate = By.xpath("(//span[text()='Designated date'])[1]");
 	private By Designatedate = By.xpath("(//input[@placeholder='DD/MM/YYYY'])[1]");
-	private By Idtype = By.xpath("(//span[text()='Id Type'])[1]");
-	private By Idtypesearch = By.xpath("(//input[@placeholder='Search id type'])");
-	private By Idtypefilter = By.xpath("//input[@id='advance-filter-list-select-all-idNumberTypesList.idType']");
-	private By Programsource = By.xpath("(//span[text()='Program Source'])[1]");
-	private By Programsourcesearch = By.xpath("(//input[@placeholder='Search program source'])");
-	private By Programsourcefilter = By.xpath("//input[@id='advance-filter-list-select-all-sanctionProgramDetailsList.programSource']");
-	private By Regimename = By.xpath("(//span[text()='Regime Name'])[1]");
-	private By Regimenamesearch = By.xpath("(//input[@placeholder='Search regime name'])");
-	private By Regimenamefilter = By.xpath("//input[@id='advance-filter-list-select-all-sanctionProgramDetailsList.programName']");
+	private By Entrydate = By.xpath("//span[text()='Entry into force date']");
+    private By Lastupdate = By.xpath("(//span[text()='Last Updated Date'])[1]");
+    private By Startdate = By.xpath("(//input[@name='startDate'])");
+    private By Enddate = By.xpath("(//input[@name='endDate'])");
+    private By Publicationdate = By.xpath("//span[text()='Publication Date']");
     private By Type = By.xpath("(//span[text()='Type'])[1]");
-	private By TypeSearch = By.xpath("(//input[@placeholder='Search type'])");
-	private By Typefilter = By.xpath("//input[@id='advance-filter-list-select-all-entityTypeName']");
-
-
-
-
+    private By TypeSearch = By.xpath("(//input[@placeholder='Search type'])");
+    private By Typefilter = By.xpath("//input[@id='advance-filter-list-select-all-entityTypeName']");
 
     // Action Locators
     private By Apply = By.xpath("(//button[@id='advance-filter-apply-btn'])");
     private By Downloadicon = By.xpath("(//button[@id='regulatory-records-download-btn'])");
     private By Excel = By.xpath("(//span[text()='Excel (.xlsx)'])");
-    private By Toaster = By.xpath("//div[text()='Request in progress. Check the Downloads tab for status']");
     private By Tab = By.xpath("(//li[text()='Tab separated (.tsv)'])");
+    private By Toaster = By.xpath("//div[text()='Request in progress. Check the Downloads tab for status']");
     private By Clearfilter = By.xpath("//button[text()='CLEAR FILTERS']");
     private By Selectall = By.xpath("//label[text()='Select all']");
 
@@ -100,11 +95,11 @@ public class UKSANCTIONSadvfilterPage {
     WebDriver driver;
     private int uiFilteredCount;
 
-    public UKSANCTIONSadvfilterPage(WebDriver driver) {
+    public EUadvfilterPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void facctlist_login_2(String url, String ornm, String usnm, String pswd) throws InterruptedException 
+    public void facctlist_login_3(String url, String ornm, String usnm, String pswd) throws InterruptedException 
     {
         driver.get(url);Thread.sleep(2000);
         boolean logo1 = driver.findElement(Welcomepage).isDisplayed();
@@ -134,23 +129,20 @@ public class UKSANCTIONSadvfilterPage {
         }
     }
 
-    public void navigate_to_regulatory_list_2() throws InterruptedException 
+    public void navigate_to_regulatory_list_3() throws InterruptedException 
     {
-        driver.findElement(Watchlistmenu).click();Thread.sleep(4000);
-        driver.findElement(Regulatorylist).click();Thread.sleep(3000);
+        driver.findElement(Watchlistmenu).click();Thread.sleep(2000);
+        driver.findElement(Regulatorylist).click();Thread.sleep(1000);
     }
 
-    public void select_uksanctions_list() throws InterruptedException {
-        driver.findElement(Pagination).click();Thread.sleep(2000);
-        driver.findElement(Pagevalue).click();Thread.sleep(2000);
-        driver.findElement(UKSanctions).click();Thread.sleep(3000);
-
-
-
-
+    public void select_eu_list() throws InterruptedException 
+    {
+        driver.findElement(Pagination).click();Thread.sleep(1000);
+        driver.findElement(Pagevalue).click();Thread.sleep(1000);
+        driver.findElement(Eu).click();Thread.sleep(5000);
     }
 
-    public void apply_uksanctions_filter(String designateddate, String idtype, String programname, String regimename, String type, String id) throws InterruptedException 
+    public void apply_eu_filter(String citizenship, String designatdate, String startdate, String enddate, String type, String citi) throws InterruptedException 
     {
         //ACTIVE TAB
         try {
@@ -178,7 +170,7 @@ public class UKSANCTIONSadvfilterPage {
                 System.out.println("Close Button not Working");
                 }
             driver.findElement(Filter).click();Thread.sleep(2000);
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
             driver.findElement(Clearall).click();
             driver.findElement(Apply).click();Thread.sleep(3000);
@@ -197,7 +189,7 @@ public class UKSANCTIONSadvfilterPage {
                 }
 
             driver.findElement(Filter).click();Thread.sleep(2000);
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
             driver.findElement(Apply).click();Thread.sleep(3000);
 
@@ -1453,31 +1445,9 @@ public class UKSANCTIONSadvfilterPage {
         }
     }
 
-    public void check_download_status_2() throws InterruptedException {
-        driver.findElement(Downloads).click();Thread.sleep(3000);
-        driver.findElement(Refresh).click();Thread.sleep(3000);
-        for (int i = 0;i<100;i++) {
-            driver.findElement(Refresh).click();Thread.sleep(5000);
-            try{
-                boolean stat = driver.findElement(Success).isDisplayed();
-                if (stat == true){
-                    driver.findElement(Download).click();
-                    try{
-                        boolean logo = driver.findElement(Status).isDisplayed();
-                        if (logo == true){
-                            System.out.println("Successfully download");
-                            break;
-                        }
-                    }
-                    catch(Exception e){
-                        // Done
-                    }
-                }
-            }
-            catch(Exception e){
-                // continue loop till get sucess
-            }
-            
-        }
+    public void check_download_status_3() throws InterruptedException 
+    {
+
     }
+    
 }

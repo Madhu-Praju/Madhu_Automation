@@ -4,18 +4,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
+import com.mongodb.client.model.Filters;
+import com.qea.utils.MongoDBUtil;
+import com.qea.utils.configReader;
+
+import java.util.Properties;
+
 public class OFACadvfilterPage {
 
     // Login Locators
     private By Welcomepage = By.xpath("//div[text()='Welcome']");
     private By Login = By.xpath("//button[@aria-label='LOG IN']");
-    private By Orgpage = By.xpath("//h1[text()='Welcome']");
     private By Orgname = By.id("organizationName");
     private By Continue1 = By.xpath("//button[text()='CONTINUE']");
-    private By Loginpage = By.xpath("//h1[text()='Welcome']");
     private By Username = By.id("username");
     private By Password = By.id("password");
-    private By Forgotpass = By.xpath("//a[text()='Forgot password?']");
     private By Continue2 = By.xpath("//button[text()='Continue']");
     private By Facctlistarrow = By.xpath("(//div[@class='product-card '])");
     private By Facctlistdashboard = By.xpath("//div[text()='Dashboard']");
@@ -26,7 +29,7 @@ public class OFACadvfilterPage {
     private By Pagination = By.xpath("//button[@id='basic-button']");
     private By Pagevalue = By.xpath("//li[text()='100']");
     private By Ofac = By.xpath("//div[text()='OFAC']");
-    //private By OfacEn = By.xpath("//div[text()='OFAC Enhanced']");
+    private By OfacEn = By.xpath("//div[text()='OFAC Enhanced']");
 
     // Tab and Filter Locators
     private By Active = By.xpath("(//button[@id='simple-tab-0'])[2]");
@@ -35,7 +38,6 @@ public class OFACadvfilterPage {
     private By Error0 = By.xpath("//button[@aria-label='Error (0)']");
     private By Delete = By.xpath("//button[@id='simple-tab-2']");
     private By Delete0 = By.xpath("//button[@aria-label='Deleted (0)']");
-    //private By Delta = By.xpath("(//span[@class='MuiTouchRipple-root css-w0pj6f'])[21]");
     private By Delta = By.xpath("(//input[@type='checkbox'])[1]");
     private By New = By.xpath("(//button[@id='simple-tab-0'])[2]");
     private By New0 = By.xpath("//button[@aria-label='New (0)']");
@@ -50,6 +52,10 @@ public class OFACadvfilterPage {
     private By Filter = By.xpath("(//button[@id='record-table-filter-btn'])");
 
     // OFAC Filter Locators
+    private By Close = By.xpath("//button[text()='CLOSE']");
+    private By Clearall = By.xpath("//button[text()='CLEAR ALL']");
+    private By Nofilter = By.xpath("//div[text()='No filters selected']");
+    private By Nodata = By.xpath("//h5[text()='No data available']");
     private By AddressCountry = By.xpath("(//span[text()='Address country'])[1]");
     private By AddressSearch = By.xpath("(//input[@placeholder='Search address country'])");
     private By Addresfilter = By.xpath("//input[@id='advance-filter-list-select-all-addressDetailsList.countryName']");
@@ -79,15 +85,11 @@ public class OFACadvfilterPage {
     private By Selectall = By.xpath("//label[text()='Select all']");
 
     // Status Locators
-    private By Initiated = By.xpath("//div[text()='Request initiated. Check status at Downloads tab']");
     private By Downloads = By.xpath("//button[@id='simple-tab-1']");
-    private By Firstrow = By.xpath("(//tr[@class='MuiTableRow-root table-row css-1a11t6r'])[1]");
-    private By Started = By.xpath("(//div[text()='Started'])[1]");
     private By Success = By.xpath("(//tr[1]//td)[6]/div");
-    private By Failed = By.xpath("(//div[text()='Failed'])[1]");
-    private By Activerecord = By.xpath("(//div[text()='Active record download'])[1]");
     private By Download = By.xpath("(//tr[1]//td)[7]/button");
-    private By Refresh = By.xpath("//div[@aria-label='refresh button']");
+    private By Refresh = By.xpath("//button[@aria-label='refresh button']");
+    private By Status = By.xpath("//div[text()='Download started.']");
 
     private By Prname = By.xpath("//input[@id='advance-filter-list-561-Related']");
 
@@ -102,7 +104,8 @@ public class OFACadvfilterPage {
         this.driver = driver;
     }
 
-    public void facctlist_login_1(String url, String ornm, String usnm, String pswd) throws InterruptedException {
+    public void facctlist_login_1(String url, String ornm, String usnm, String pswd) throws InterruptedException 
+    {
         driver.get(url);Thread.sleep(2000);
         boolean logo1 = driver.findElement(Welcomepage).isDisplayed();
         if (logo1) {
@@ -121,8 +124,7 @@ public class OFACadvfilterPage {
         JavascriptExecutor j = (JavascriptExecutor) driver;
         j.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 
-        driver.findElement(Facctlistarrow).click();
-        Thread.sleep(5000);
+        driver.findElement(Facctlistarrow).click();Thread.sleep(5000);
 
         boolean logo5 = driver.findElement(Facctlistdashboard).isDisplayed();
         if (logo5) {
@@ -132,78 +134,173 @@ public class OFACadvfilterPage {
         }
     }
 
-    public void navigate_to_regulatory_list_1() throws InterruptedException {
-        driver.findElement(Watchlistmenu).click();Thread.sleep(4000);
-        driver.findElement(Regulatorylist).click();Thread.sleep(3000);
+    public void navigate_to_regulatory_list_1() throws InterruptedException 
+    {
+        driver.findElement(Watchlistmenu).click();Thread.sleep(2000);
+        driver.findElement(Regulatorylist).click();Thread.sleep(1000);
     }
 
-    public void select_ofac_list() throws InterruptedException {
-        driver.findElement(Pagination).click();Thread.sleep(2000);
-        driver.findElement(Pagevalue).click();Thread.sleep(2000);
-        driver.findElement(Ofac).click();Thread.sleep(3000);
+    public void select_ofac_list() throws InterruptedException 
+    {
+        driver.findElement(Pagination).click();Thread.sleep(1000);
+        driver.findElement(Pagevalue).click();Thread.sleep(1000);
+        driver.findElement(OfacEn).click();Thread.sleep(5000);
+        // driver.findElement(Downloads).click();Thread.sleep(4000);
+        // driver.findElement(Download).click();Thread.sleep(7000);
+        // driver.findElement(Refresh).click();
     }
 
-    public void apply_ofac_filter(String address, String citizenship, String startdate, 
-            String enddate, String nationality, String program, String type) throws InterruptedException {
-          
+    public void apply_ofac_filter(String address, String citizenship, String startdate, String enddate, String nationality, String program, String type, String add) throws InterruptedException 
+    {
         //ACTIVE TAB
         try {
             boolean logo1 = driver.findElement(Active0).isDisplayed();
             if(logo1 == true){
                 System.out.println("No Data in Active Tab");
             }
-        } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
             driver.findElement(Active).click();Thread.sleep(1000);
 
-            driver.findElement(Filter).click();
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Close).click();Thread.sleep(2000);
+                try 
+                {
+                boolean logo12 = driver.findElement(Filter).isDisplayed();
+                if(logo12 == true)
+                    {
+                    System.out.println("Close Button is working");
+                    }
+                } 
+                catch (Exception e5) 
+                {
+                System.out.println("Close Button not Working");
+                }
+            driver.findElement(Filter).click();Thread.sleep(2000);
             driver.findElement(AddressCountry).click();
             driver.findElement(Selectall).click();
-            // driver.findElement(Programname).click();
-            // driver.findElement(Prname).click();
-
-
+            driver.findElement(Clearall).click();
             driver.findElement(Apply).click();Thread.sleep(3000);
-        try {
-            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-            if (logo9 == true) {
+                try
+                {
+                boolean logo11 = driver.findElement(Nofilter).isDisplayed();
+                if(logo11 == true)
+                    {
+                    System.out.println("Clear All Button is Working");
+                    System.out.println("No filter is added");
+                    }
+                }
+                catch(Exception e4)
+                {
+                System.out.println("Filter is working without selecting");
+                }
+
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+
+            // --- Inline: Capture UI count and validate against MongoDB ---
+            int uiCount = -1;
+                try 
+                {
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                String allText = (String) js.executeScript("return document.body.innerText;");
+                java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("(\\d+)\\s*-\\s*(\\d+)\\s+of\\s+(\\d+)");
+                java.util.regex.Matcher matcher = pattern.matcher(allText);
+                String lastCount = null;
+                while (matcher.find()) {
+                    lastCount = matcher.group(3);
+                }
+                if (lastCount != null) {
+                    uiCount = Integer.parseInt(lastCount);
+                }
+                } catch (Exception ex) 
+                {
+                System.out.println("[apply_ofac_filter] Error capturing UI count: " + ex.getMessage());
+                }
+                System.out.println("[apply_ofac_filter] UI Filtered Count (Address Select All): " + uiCount);
+
+            // Fetch count from MongoDB and compare
+            long dbCount = -1;
+            MongoDBUtil mongoUtil = new MongoDBUtil();
+                try 
+                {
+                mongoUtil.connect();
+                configReader confReader = new configReader();
+                java.util.Properties prop = confReader.init_pop();
+                String collectionName = prop.getProperty("mongo.collection.ruleclass", "facctumRegulatoryList");
+
+                java.util.List<java.util.Map<String, String>> results = mongoUtil.findDocuments(collectionName,
+                    Filters.and(
+                        Filters.eq("listName", "OFAC Enhanced"),
+                        //Filters.eq("listName", "OFAC"),
+                        Filters.eq("statusId", 2000),
+                        Filters.exists("addressDetailsList.countryName", true)
+                    ),
+                    java.util.Arrays.asList("primaryName")
+                );
+                dbCount = results.size();
+                System.out.println("[apply_ofac_filter] MongoDB Count (OFAC Active with address): " + dbCount);
+                } finally 
+                {
+                mongoUtil.disconnect();
+                }
+
+                if (uiCount >= 0 && uiCount == (int) dbCount) {
+                System.out.println("[apply_ofac_filter] PASSED - UI count (" + uiCount + ") matches DB count (" + dbCount + ")");
+                } else {
+                System.out.println("[apply_ofac_filter] FAILED - UI count (" + uiCount + ") vs DB count (" + dbCount + ")");
+                }
+            // --- End inline DB validation ---
+
+                try {
+                boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo9 == true) 
+                {
                 driver.findElement(Downloadicon).click();
                 driver.findElement(Tab).click();Thread.sleep(3000);
-                try {
+                    try {
                     driver.findElement(Downloadicon).click();
                     driver.findElement(Excel).click();Thread.sleep(8000);
                     boolean logo = driver.findElement(Toaster).isDisplayed();Thread.sleep(2000);
-                    if (logo == true){
+                    if (logo == true)
+                        {
                         System.out.println("Request is in progress");
                         driver.findElement(Clearfilter).click();
-                    }   
-                } catch (Exception e2) {
+                        }   
+                    } catch (Exception e2) 
+                    {
                     System.out.println("Download is started for same filter");
+                    }
                 }
-            }
-        } catch (Exception e1) {
+                    } 
+                    catch (Exception e1) 
+                    {
             System.out.println("Active Tab");
             System.out.println("No Records for Address filter");
             driver.findElement(Clearfilter).click();
+            }
+
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo10 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo10 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Active Tab");
+            System.out.println("No Records for Citizenship filter");
+            driver.findElement(Clearfilter).click();Thread.sleep(2000);
         }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo10 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo10 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Active Tab");
-        //     System.out.println("No Records for Citizenship filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Lastupdate).click();
         //     driver.findElement(Startdate).click();
         //     driver.findElement(Startdate).sendKeys(startdate);
@@ -223,96 +320,111 @@ public class OFACadvfilterPage {
         //     driver.findElement(Clearfilter).click();
         // }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Active Tab");
-        //     System.out.println("No Records for National filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Active Tab");
+            System.out.println("No Records for National filter");
+            driver.findElement(Clearfilter).click();
+        }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Active Tab");
-        //     System.out.println("No Records for Program name filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Active Tab");
+            System.out.println("No Records for Program name filter");
+            driver.findElement(Clearfilter).click();
+        }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Active Tab");
-        //     System.out.println("No Records for Address filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        //     //ACTIVE TAB ALL FILTERS
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Active Tab");
-        //     System.out.println("No Records for All filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Active Tab");
+            System.out.println("No Records for Address filter");
+            driver.findElement(Clearfilter).click();
+        }
+            //ACTIVE TAB ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(add);Thread.sleep(2000);
+            // Ref Data check By Entering Wrong Input
+            try{
+                boolean logo10 = driver.findElement(Nodata).isDisplayed();
+                if (logo10 == true)
+                {
+                    System.out.println("Entered data is not in Ref Data");
+                     driver.findElement(AddressSearch).clear();
+                }
+
+            }
+            catch(Exception e3){
+                // No Data in Ref Catch
+            }
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            // driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Active Tab");
+            System.out.println("No Records for All filter");
+            driver.findElement(Clearfilter).click();
+        }
         }
 
 
@@ -325,7 +437,7 @@ public class OFACadvfilterPage {
         // } catch(Exception e) {
         //     driver.findElement(Error).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -343,7 +455,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Clearfilter).click();
         //     driver.findElement(Error).click();Thread.sleep(1000);
         // }
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Citizencountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -361,29 +473,29 @@ public class OFACadvfilterPage {
         //     driver.findElement(Clearfilter).click();
         //     driver.findElement(Error).click();Thread.sleep(1000);
         // }
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Error).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Error Tab");
-        //     System.out.println("No Records for Last update date filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Error).click();Thread.sleep(1000);
-        // }
+        // //     driver.findElement(Filter).click();Thread.sleep(2000);
+        // //     driver.findElement(Lastupdate).click();
+        // //     driver.findElement(Startdate).click();
+        // //     driver.findElement(Startdate).sendKeys(startdate);
+        // //     driver.findElement(Enddate).click();
+        // //     driver.findElement(Enddate).sendKeys(enddate);
+        // //     driver.findElement(Apply).click();Thread.sleep(3000);
+        // //     try {
+        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+        // //     if (logo9 == true) {
+        // //         driver.findElement(Downloadicon).click();
+        // //         driver.findElement(Tab).click();Thread.sleep(4000);
+        // //         driver.findElement(Clearfilter).click();
+        // //         driver.findElement(Error).click();Thread.sleep(1000);   
+        // //     }
+        // // } catch (Exception e1) {
+        // //     System.out.println("Error Tab");
+        // //     System.out.println("No Records for Last update date filter");
+        // //     driver.findElement(Clearfilter).click();
+        // //     driver.findElement(Error).click();Thread.sleep(1000);
+        // // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -402,7 +514,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Error).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Programname).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -421,7 +533,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Error).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Type).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -441,7 +553,7 @@ public class OFACadvfilterPage {
         // }
             
         //     //ERROR TAB ALL FILTERS
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(AddressSearch).click();
         //     driver.findElement(AddressSearch).sendKeys(address);
@@ -450,11 +562,11 @@ public class OFACadvfilterPage {
         //     driver.findElement(CitizenSearch).click();
         //     driver.findElement(CitizenSearch).sendKeys(citizenship);
         //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
+        //     // driver.findElement(Lastupdate).click();
+        //     // driver.findElement(Startdate).click();
+        //     // driver.findElement(Startdate).sendKeys(startdate);
+        //     // driver.findElement(Enddate).click();
+        //     // driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(NationalSearch).click();
         //     driver.findElement(NationalSearch).sendKeys(nationality);
@@ -491,7 +603,7 @@ public class OFACadvfilterPage {
         // } catch(Exception e) {
         //     driver.findElement(Delete).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -510,7 +622,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Delete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Citizencountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -529,29 +641,29 @@ public class OFACadvfilterPage {
         //     driver.findElement(Delete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Delete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delete Tab");
-        //     System.out.println("No records for last update date filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Delete).click();Thread.sleep(1000);
-        // }
+        // //     driver.findElement(Filter).click();Thread.sleep(2000);
+        // //     driver.findElement(Lastupdate).click();
+        // //     driver.findElement(Startdate).click();
+        // //     driver.findElement(Startdate).sendKeys(startdate);
+        // //     driver.findElement(Enddate).click();
+        // //     driver.findElement(Enddate).sendKeys(enddate);
+        // //     driver.findElement(Apply).click();Thread.sleep(3000);
+        // //     try {
+        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+        // //     if (logo9 == true) {
+        // //         driver.findElement(Downloadicon).click();
+        // //         driver.findElement(Tab).click();Thread.sleep(4000);
+        // //         driver.findElement(Clearfilter).click();
+        // //         driver.findElement(Delete).click();Thread.sleep(1000);   
+        // //     }
+        // // } catch (Exception e1) {
+        // //     System.out.println("Delete Tab");
+        // //     System.out.println("No records for last update date filter");
+        // //     driver.findElement(Clearfilter).click();
+        // //     driver.findElement(Delete).click();Thread.sleep(1000);
+        // // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -570,7 +682,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Delete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Programname).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -589,7 +701,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Delete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Type).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -609,7 +721,7 @@ public class OFACadvfilterPage {
         // }
             
         //     //DELETE ALL FILTERS
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(AddressSearch).click();
         //     driver.findElement(AddressSearch).sendKeys(address);
@@ -618,11 +730,11 @@ public class OFACadvfilterPage {
         //     driver.findElement(CitizenSearch).click();
         //     driver.findElement(CitizenSearch).sendKeys(citizenship);
         //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
+        //     // driver.findElement(Lastupdate).click();
+        //     // driver.findElement(Startdate).click();
+        //     // driver.findElement(Startdate).sendKeys(startdate);
+        //     // driver.findElement(Enddate).click();
+        //     // driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(NationalSearch).click();
         //     driver.findElement(NationalSearch).sendKeys(nationality);
@@ -650,7 +762,7 @@ public class OFACadvfilterPage {
         // }
         // }
 
-        // driver.findElement(Delta).click();Thread.sleep(3000);
+         driver.findElement(Delta).click();Thread.sleep(3000);
 
 
         // //NEW TAB
@@ -662,7 +774,7 @@ public class OFACadvfilterPage {
         // } catch(Exception e) {
         //     driver.findElement(New).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click(); 
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -679,7 +791,7 @@ public class OFACadvfilterPage {
         //     System.out.println("No Recod for address filter");
         //     driver.findElement(New).click();Thread.sleep(1000);
         // }
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Citizencountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -698,29 +810,29 @@ public class OFACadvfilterPage {
         //     driver.findElement(New).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //      try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(New).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("New Tab");
-        //     System.out.println("No records for last updatre date filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(New).click();Thread.sleep(1000);
-        // }
+        // //     driver.findElement(Filter).click();Thread.sleep(2000);
+        // //     driver.findElement(Lastupdate).click();
+        // //     driver.findElement(Startdate).click();
+        // //     driver.findElement(Startdate).sendKeys(startdate);
+        // //     driver.findElement(Enddate).click();
+        // //     driver.findElement(Enddate).sendKeys(enddate);
+        // //     driver.findElement(Apply).click();Thread.sleep(3000);
+        // //      try {
+        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+        // //     if (logo9 == true) {
+        // //         driver.findElement(Downloadicon).click();
+        // //         driver.findElement(Tab).click();Thread.sleep(4000);
+        // //         driver.findElement(Clearfilter).click();
+        // //         driver.findElement(New).click();Thread.sleep(1000);   
+        // //     }
+        // // } catch (Exception e1) {
+        // //     System.out.println("New Tab");
+        // //     System.out.println("No records for last updatre date filter");
+        // //     driver.findElement(Clearfilter).click();
+        // //     driver.findElement(New).click();Thread.sleep(1000);
+        // // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -739,7 +851,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(New).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Programname).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -758,7 +870,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(New).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Type).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -778,7 +890,7 @@ public class OFACadvfilterPage {
         // }
             
         //     //NEW ALL FILTERS
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(AddressSearch).click();
         //     driver.findElement(AddressSearch).sendKeys(address);
@@ -787,11 +899,11 @@ public class OFACadvfilterPage {
         //     driver.findElement(CitizenSearch).click();
         //     driver.findElement(CitizenSearch).sendKeys(citizenship);
         //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
+        //     // driver.findElement(Lastupdate).click();
+        //     // driver.findElement(Startdate).click();
+        //     // driver.findElement(Startdate).sendKeys(startdate);
+        //     // driver.findElement(Enddate).click();
+        //     // driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(NationalSearch).click();
         //     driver.findElement(NationalSearch).sendKeys(nationality);
@@ -828,7 +940,7 @@ public class OFACadvfilterPage {
         // } catch(Exception e) {
         //     driver.findElement(Amend).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click(); 
+        //     driver.findElement(Filter).click();Thread.sleep(2000); 
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -847,7 +959,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Amend).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Citizencountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -866,29 +978,29 @@ public class OFACadvfilterPage {
         //     driver.findElement(Amend).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //    try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Amend).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Amend Tab");
-        //     System.out.println("No records for last update date filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Amend).click();Thread.sleep(1000);
-        // }
+        // //     driver.findElement(Filter).click();Thread.sleep(2000);
+        // //     driver.findElement(Lastupdate).click();
+        // //     driver.findElement(Startdate).click();
+        // //     driver.findElement(Startdate).sendKeys(startdate);
+        // //     driver.findElement(Enddate).click();
+        // //     driver.findElement(Enddate).sendKeys(enddate);
+        // //     driver.findElement(Apply).click();Thread.sleep(3000);
+        // //    try {
+        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+        // //     if (logo9 == true) {
+        // //         driver.findElement(Downloadicon).click();
+        // //         driver.findElement(Tab).click();Thread.sleep(4000);
+        // //         driver.findElement(Clearfilter).click();
+        // //         driver.findElement(Amend).click();Thread.sleep(1000);   
+        // //     }
+        // // } catch (Exception e1) {
+        // //     System.out.println("Amend Tab");
+        // //     System.out.println("No records for last update date filter");
+        // //     driver.findElement(Clearfilter).click();
+        // //     driver.findElement(Amend).click();Thread.sleep(1000);
+        // // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -907,7 +1019,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Amend).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Programname).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -926,7 +1038,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Amend).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Type).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -946,7 +1058,7 @@ public class OFACadvfilterPage {
         // }
             
         //     //AMEND ALL FILTERS
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(AddressSearch).click();
         //     driver.findElement(AddressSearch).sendKeys(address);
@@ -955,11 +1067,11 @@ public class OFACadvfilterPage {
         //     driver.findElement(CitizenSearch).click();
         //     driver.findElement(CitizenSearch).sendKeys(citizenship);
         //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
+        //     // driver.findElement(Lastupdate).click();
+        //     // driver.findElement(Startdate).click();
+        //     // driver.findElement(Startdate).sendKeys(startdate);
+        //     // driver.findElement(Enddate).click();
+        //     // driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(NationalSearch).click();
         //     driver.findElement(NationalSearch).sendKeys(nationality);
@@ -997,7 +1109,7 @@ public class OFACadvfilterPage {
         // } catch(Exception e) {
         //     driver.findElement(DDelete).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click(); 
+        //     driver.findElement(Filter).click();Thread.sleep(2000); 
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1016,7 +1128,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(DDelete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Citizencountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1035,29 +1147,29 @@ public class OFACadvfilterPage {
         //     driver.findElement(DDelete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DDelete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Delete Tab");
-        //     System.out.println("No recoprds for last update date filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DDelete).click();Thread.sleep(1000);
-        // }
+        // //     driver.findElement(Filter).click();Thread.sleep(2000);
+        // //     driver.findElement(Lastupdate).click();
+        // //     driver.findElement(Startdate).click();
+        // //     driver.findElement(Startdate).sendKeys(startdate);
+        // //     driver.findElement(Enddate).click();
+        // //     driver.findElement(Enddate).sendKeys(enddate);
+        // //     driver.findElement(Apply).click();Thread.sleep(3000);
+        // //     try {
+        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+        // //     if (logo9 == true) {
+        // //         driver.findElement(Downloadicon).click();
+        // //         driver.findElement(Tab).click();Thread.sleep(4000);
+        // //         driver.findElement(Clearfilter).click();
+        // //         driver.findElement(DDelete).click();Thread.sleep(1000);   
+        // //     }
+        // // } catch (Exception e1) {
+        // //     System.out.println("Delta Delete Tab");
+        // //     System.out.println("No recoprds for last update date filter");
+        // //     driver.findElement(Clearfilter).click();
+        // //     driver.findElement(DDelete).click();Thread.sleep(1000);
+        // // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1076,7 +1188,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(DDelete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Programname).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1095,7 +1207,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(DDelete).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Type).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1115,7 +1227,7 @@ public class OFACadvfilterPage {
         // }
             
         //     //DELTA DELETE ALL FILTERS
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(AddressSearch).click();
         //     driver.findElement(AddressSearch).sendKeys(address);
@@ -1124,11 +1236,11 @@ public class OFACadvfilterPage {
         //     driver.findElement(CitizenSearch).click();
         //     driver.findElement(CitizenSearch).sendKeys(citizenship);
         //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
+        //     // driver.findElement(Lastupdate).click();
+        //     // driver.findElement(Startdate).click();
+        //     // driver.findElement(Startdate).sendKeys(startdate);
+        //     // driver.findElement(Enddate).click();
+        //     // driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(NationalSearch).click();
         //     driver.findElement(NationalSearch).sendKeys(nationality);
@@ -1165,7 +1277,7 @@ public class OFACadvfilterPage {
         // } catch(Exception e) {
         //     driver.findElement(Stable).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1184,7 +1296,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Stable).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Citizencountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1203,29 +1315,29 @@ public class OFACadvfilterPage {
         //     driver.findElement(Stable).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Stable).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Stable Tab");
-        //     System.out.println("No records for last update type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Stable).click();Thread.sleep(1000);
-        // }
+        // //     driver.findElement(Filter).click();Thread.sleep(2000);
+        // //     driver.findElement(Lastupdate).click();
+        // //     driver.findElement(Startdate).click();
+        // //     driver.findElement(Startdate).sendKeys(startdate);
+        // //     driver.findElement(Enddate).click();
+        // //     driver.findElement(Enddate).sendKeys(enddate);
+        // //     driver.findElement(Apply).click();Thread.sleep(3000);
+        // //     try {
+        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+        // //     if (logo9 == true) {
+        // //         driver.findElement(Downloadicon).click();
+        // //         driver.findElement(Tab).click();Thread.sleep(4000);
+        // //         driver.findElement(Clearfilter).click();
+        // //         driver.findElement(Stable).click();Thread.sleep(1000);   
+        // //     }
+        // // } catch (Exception e1) {
+        // //     System.out.println("Stable Tab");
+        // //     System.out.println("No records for last update type filter");
+        // //     driver.findElement(Clearfilter).click();
+        // //     driver.findElement(Stable).click();Thread.sleep(1000);
+        // // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1244,7 +1356,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Stable).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Programname).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1263,7 +1375,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(Stable).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Type).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1283,7 +1395,7 @@ public class OFACadvfilterPage {
         // }
             
         //     //STABLE ALL FILTERS
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(AddressSearch).click();
         //     driver.findElement(AddressSearch).sendKeys(address);
@@ -1292,11 +1404,11 @@ public class OFACadvfilterPage {
         //     driver.findElement(CitizenSearch).click();
         //     driver.findElement(CitizenSearch).sendKeys(citizenship);
         //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
+        //     // driver.findElement(Lastupdate).click();
+        //     // driver.findElement(Startdate).click();
+        //     // driver.findElement(Startdate).sendKeys(startdate);
+        //     // driver.findElement(Enddate).click();
+        //     // driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(NationalSearch).click();
         //     driver.findElement(NationalSearch).sendKeys(nationality);
@@ -1334,7 +1446,7 @@ public class OFACadvfilterPage {
         // } catch(Exception e) {
         //     driver.findElement(DError).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1353,7 +1465,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(DError).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Citizencountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1372,29 +1484,29 @@ public class OFACadvfilterPage {
         //     driver.findElement(DError).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DError).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Error Tab");
-        //     System.out.println("No record for last update date filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DError).click();Thread.sleep(1000);
-        // }
+        // //     driver.findElement(Filter).click();Thread.sleep(2000);
+        // //     driver.findElement(Lastupdate).click();
+        // //     driver.findElement(Startdate).click();
+        // //     driver.findElement(Startdate).sendKeys(startdate);
+        // //     driver.findElement(Enddate).click();
+        // //     driver.findElement(Enddate).sendKeys(enddate);
+        // //     driver.findElement(Apply).click();Thread.sleep(3000);
+        // //     try {
+        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+        // //     if (logo9 == true) {
+        // //         driver.findElement(Downloadicon).click();
+        // //         driver.findElement(Tab).click();Thread.sleep(4000);
+        // //         driver.findElement(Clearfilter).click();
+        // //         driver.findElement(DError).click();Thread.sleep(1000);   
+        // //     }
+        // // } catch (Exception e1) {
+        // //     System.out.println("Delta Error Tab");
+        // //     System.out.println("No record for last update date filter");
+        // //     driver.findElement(Clearfilter).click();
+        // //     driver.findElement(DError).click();Thread.sleep(1000);
+        // // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1413,7 +1525,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(DError).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Programname).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1431,7 +1543,7 @@ public class OFACadvfilterPage {
         //     driver.findElement(DError).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(Type).click();
         //     driver.findElement(Selectall).click();
         //     driver.findElement(Apply).click();Thread.sleep(3000);
@@ -1451,7 +1563,7 @@ public class OFACadvfilterPage {
         // }
             
         //     //DELTA ERROR ALL FILTERS
-        //     driver.findElement(Filter).click();
+        //     driver.findElement(Filter).click();Thread.sleep(2000);
         //     driver.findElement(AddressCountry).click();
         //     driver.findElement(AddressSearch).click();
         //     driver.findElement(AddressSearch).sendKeys(address);
@@ -1460,11 +1572,11 @@ public class OFACadvfilterPage {
         //     driver.findElement(CitizenSearch).click();
         //     driver.findElement(CitizenSearch).sendKeys(citizenship);
         //     driver.findElement(Citizenfilter).click();
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
+        //     // driver.findElement(Lastupdate).click();
+        //     // driver.findElement(Startdate).click();
+        //     // driver.findElement(Startdate).sendKeys(startdate);
+        //     // driver.findElement(Enddate).click();
+        //     //driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Nationalcountry).click();
         //     driver.findElement(NationalSearch).click();
         //     driver.findElement(NationalSearch).sendKeys(nationality);
@@ -1491,117 +1603,34 @@ public class OFACadvfilterPage {
         //     driver.findElement(Clearfilter).click();
         // }
         //  }
-     }
+      }
 
-    // public void check_download_status_1() throws InterruptedException {
-    //     driver.findElement(Downloads).click();Thread.sleep(3000);
-    //     driver.findElement(Refresh).click();Thread.sleep(3000);
-    //     for (int i = 0;i<20;i++) {
-    //         driver.findElement(Refresh).click();Thread.sleep(3000);
-
+    public void check_download_status_1() throws InterruptedException 
+    {
+        driver.findElement(Downloads).click();Thread.sleep(3000);
+        driver.findElement(Refresh).click();Thread.sleep(3000);
+        for (int i = 0;i<100;i++) {
+            driver.findElement(Refresh).click();Thread.sleep(5000);
+            try{
+                boolean stat = driver.findElement(Success).isDisplayed();
+                if (stat == true){
+                    driver.findElement(Download).click();
+                    try{
+                        boolean logo = driver.findElement(Status).isDisplayed();
+                        if (logo == true){
+                            System.out.println("Successfully download");
+                            break;
+                        }
+                    }
+                    catch(Exception e){
+                        // Done
+                    }
+                }
+            }
+            catch(Exception e){
+                // continue loop till get sucess
+            }
             
-    //     }
-
-
-    //     try {
-    //         boolean rtype = driver.findElement(Activerecord).isDisplayed();
-    //         if (rtype == true) {
-    //             System.out.println("Active record found - waiting for download to complete");
-
-    //             int maxAttempts = 60;
-    //             boolean downloadSuccess = false;
-
-    //             for (int i = 0; i < maxAttempts; i++) {
-    //                 driver.findElement(Refresh).click();Thread.sleep(3000);
-
-    //                 try {
-    //                     boolean successStatus = driver.findElement(Success).isDisplayed();
-    //                     if (successStatus) {
-    //                         System.out.println("Status is Success - downloading file");
-    //                         driver.findElement(Download).click();
-    //                         Thread.sleep(2000);
-    //                         System.out.println("File downloaded successfully");
-    //                         downloadSuccess = true;
-    //                         break;
-    //                     }
-    //                 } catch (Exception e1) {
-    //                     try {
-    //                         boolean failedStatus = driver.findElement(Failed).isDisplayed();
-    //                         if (failedStatus) {
-    //                             System.out.println("Download Failed");
-    //                             break;
-    //                         }
-    //                     } catch (Exception e2) {
-    //                         System.out.println("Download in progress... waiting (" + (i+1) + "/" + maxAttempts + ")");
-    //                     }
-    //                 }
-    //             }
-
-    //             if (!downloadSuccess) {
-    //                 System.out.println("Download Failed - Timeout reached");
-    //             }
-    //         }
-    //     } catch (Exception e) {
-    //         System.out.println("No active records found");
-    //     }
-    // }
-
-
-    /**
-     * Apply Address Country filter with a specific country name.
-     */
-    public void apply_address_country_filter(String country) throws InterruptedException {
-        driver.findElement(Filter).click();
-        Thread.sleep(2000);
-        driver.findElement(AddressCountry).click();
-        driver.findElement(AddressSearch).click();
-        driver.findElement(AddressSearch).sendKeys(country);
-        Thread.sleep(1000);
-        driver.findElement(Addresfilter).click();
-        Thread.sleep(500);
-        driver.findElement(Apply).click();
-        Thread.sleep(3000);
-    }
-
-    /**
-     * Captures the filtered record count from the UI pagination text.
-     * Reads the "1-10 of 35" text and extracts the total count after "of".
-     * Works with any number — dynamic and format-independent.
-     */
-    public int capture_filtered_count() throws InterruptedException {
-        Thread.sleep(3000);
-        try {
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            String allText = (String) js.executeScript("return document.body.innerText;");
-
-            // Match pattern: "1-10 of 35" or "1 - 10 of 18708" etc.
-            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("(\\d+)\\s*-\\s*(\\d+)\\s+of\\s+(\\d+)");
-            java.util.regex.Matcher matcher = pattern.matcher(allText);
-
-            // Find the LAST match on the page (pagination is at the bottom)
-            String lastCount = null;
-            while (matcher.find()) {
-                lastCount = matcher.group(3);
-            }
-
-            if (lastCount != null) {
-                uiFilteredCount = Integer.parseInt(lastCount);
-                System.out.println("[OFACadvfilterPage] UI Filtered Count: " + uiFilteredCount);
-                return uiFilteredCount;
-            }
-        } catch (Exception e) {
-            System.out.println("[OFACadvfilterPage] Error capturing count: " + e.getMessage());
         }
-
-        System.out.println("[OFACadvfilterPage] Could not capture filtered count from pagination");
-        return -1;
     }
-
-    /**
-     * Returns the last captured UI filtered count.
-     */
-    public int getUiFilteredCount() {
-        return uiFilteredCount;
-    }
-
 }
