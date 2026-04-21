@@ -51,7 +51,7 @@ public class EUadvfilterPage {
     private By Filter = By.xpath("(//button[@id='record-table-filter-btn'])");
 
     // OFAC Filter Locators
-    private By Close = By.xpath("//button[text()='CLOSE']");
+    private By Cancel = By.xpath("//button[text()='CANCEL']");
     private By Clearall = By.xpath("//button[text()='CLEAR ALL']");
     private By Nofilter = By.xpath("//div[text()='No filters selected']");
     private By Nodata = By.xpath("//h5[text()='No data available']");
@@ -139,10 +139,10 @@ public class EUadvfilterPage {
     {
         driver.findElement(Pagination).click();Thread.sleep(1000);
         driver.findElement(Pagevalue).click();Thread.sleep(1000);
-        driver.findElement(Eu).click();Thread.sleep(5000);
+        driver.findElement(Eu).click();
     }
 
-    public void apply_eu_filter(String citizenship, String designatdate, String startdate, String enddate, String type, String citi) throws InterruptedException 
+    public void apply_eu_filter(String citizenship, String designatedate, String startdate, String enddate, String type, String citi) throws InterruptedException 
     {
         //ACTIVE TAB
         try {
@@ -156,7 +156,7 @@ public class EUadvfilterPage {
             driver.findElement(Active).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();Thread.sleep(2000);
-            driver.findElement(Close).click();Thread.sleep(2000);
+            driver.findElement(Cancel).click();Thread.sleep(2000);
                 try 
                 {
                 boolean logo12 = driver.findElement(Filter).isDisplayed();
@@ -226,14 +226,14 @@ public class EUadvfilterPage {
 
                 java.util.List<java.util.Map<String, String>> results = mongoUtil.findDocuments(collectionName,
                     Filters.and(
-                        Filters.eq("listName", "UK SANCTIONS"),
+                        Filters.eq("listName", "EU"),
                         Filters.eq("statusId", 2000),
-                        Filters.exists("idNumberTypesList", true)
+                        Filters.exists("citizenshipDetailsList", true)
                     ),
                     java.util.Arrays.asList("primaryName")
                 );
                 dbCount = results.size();
-                System.out.println("[apply_ofac_filter] MongoDB Count (UK SANCTIONS Active with ID Type): " + dbCount);
+                System.out.println("[apply_ofac_filter] MongoDB Count (EU Active with ID Type): " + dbCount);
                 } finally 
                 {
                 mongoUtil.disconnect();
@@ -251,7 +251,7 @@ public class EUadvfilterPage {
                 if (logo9 == true) 
                 {
                 driver.findElement(Downloadicon).click();
-                driver.findElement(Tab).click();Thread.sleep(3000);
+                driver.findElement(Tab).click();Thread.sleep(4000);
                     try {
                     driver.findElement(Downloadicon).click();
                     driver.findElement(Excel).click();Thread.sleep(8000);
@@ -276,7 +276,7 @@ public class EUadvfilterPage {
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();
             Thread.sleep(3000);
             try {
@@ -293,8 +293,11 @@ public class EUadvfilterPage {
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
             driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
@@ -305,13 +308,16 @@ public class EUadvfilterPage {
                     driver.findElement(Clearfilter).click();
                 }
             } catch (Exception e1) {
-                System.out.println("Active Tab - No Records for Program source filter");
+                System.out.println("Active Tab - No Records for Entry Into force date filter");
                 driver.findElement(Clearfilter).click();
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
             driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
@@ -322,7 +328,27 @@ public class EUadvfilterPage {
                     driver.findElement(Clearfilter).click();
                 }
             } catch (Exception e1) {
-                System.out.println("Active Tab - No Records for Regime name filter");
+                System.out.println("Active Tab - No Records for Last Update date filter");
+                driver.findElement(Clearfilter).click();
+            }
+
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+                boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo13 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                }
+            } catch (Exception e1) {
+                System.out.println("Active Tab - No Records for Publication date filter");
                 driver.findElement(Clearfilter).click();
             }
 
@@ -348,33 +374,34 @@ public class EUadvfilterPage {
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(id);Thread.sleep(2000);
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citi);Thread.sleep(2000);
             // Ref Data check By Entering Wrong Input
             try{
                 boolean logo10 = driver.findElement(Nodata).isDisplayed();
                 if (logo10 == true)
                 {
                     System.out.println("Entered data is not in Ref Data");
-                     driver.findElement(Idtypesearch).clear();
+                     driver.findElement(CitizenSearch).clear();
                 }
             }
             catch(Exception e3){
                 // No Data in Ref Catch
             }
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -403,7 +430,7 @@ public class EUadvfilterPage {
             driver.findElement(Error).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
             driver.findElement(Apply).click();Thread.sleep(3000);
             try {
@@ -416,7 +443,7 @@ public class EUadvfilterPage {
                     driver.findElement(Error).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Error Tab - No Records for Id Type filter");
+                System.out.println("Error Tab - No Records for Citizenship Country filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Error).click();Thread.sleep(1000);
             }
@@ -424,7 +451,7 @@ public class EUadvfilterPage {
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();
             Thread.sleep(3000);
             try {
@@ -443,10 +470,12 @@ public class EUadvfilterPage {
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo12 == true) {
@@ -457,16 +486,18 @@ public class EUadvfilterPage {
                     driver.findElement(Error).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Error Tab - No Records for Program source filter");
+                System.out.println("Error Tab - No Records for Entry in to force date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Error).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo13 == true) {
@@ -477,11 +508,33 @@ public class EUadvfilterPage {
                     driver.findElement(Error).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Error Tab - Active Tab - No Records for Regime name filter");
+                System.out.println("Error Tab - Active Tab - No Records for Last update date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Error).click();Thread.sleep(1000);
             }
 
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            
+            try {
+                boolean logo14 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo14 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                    driver.findElement(Error).click();Thread.sleep(1000);
+                }
+            } catch (Exception e1) {
+                System.out.println("Error Tab - Active Tab - No Records for Publication date filter");
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Error).click();Thread.sleep(1000);
+            }
             driver.findElement(Filter).click();
             driver.findElement(Type).click();
             driver.findElement(Selectall).click();
@@ -494,31 +547,30 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(Error).click();Thread.sleep(1000);
+                    driver.findElement(Delete).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Error Tab - Active Tab - No Records for Type filter");
+                System.out.println("Error Tab - No Records for Type filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(Error).click();Thread.sleep(1000);
+                driver.findElement(Delete).click();Thread.sleep(1000);
             }
 
             //ERROR TAB ALL FILTERS
-            driver.findElement(Filter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -549,10 +601,9 @@ public class EUadvfilterPage {
             driver.findElement(Delete).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo9 == true) {
@@ -563,7 +614,7 @@ public class EUadvfilterPage {
                     driver.findElement(Delete).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Tab - No Records for Id Type filter");
+                System.out.println("Delete Tab - No Records for Citizenship country filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Delete).click();Thread.sleep(1000);
             }
@@ -571,7 +622,7 @@ public class EUadvfilterPage {
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();
             Thread.sleep(3000);
             try {
@@ -581,7 +632,7 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(Delete).click();Thread.sleep(1000);
+                    driver.findElement(Error).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
                 System.out.println("Delete Tab - No Records for Designated date filter");
@@ -590,10 +641,12 @@ public class EUadvfilterPage {
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo12 == true) {
@@ -604,16 +657,18 @@ public class EUadvfilterPage {
                     driver.findElement(Delete).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Tab - No Records for Program source filter");
+                System.out.println("Delete Tab - No Records for Entry Into force date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Delete).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo13 == true) {
@@ -624,7 +679,30 @@ public class EUadvfilterPage {
                     driver.findElement(Delete).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Tab - No Records for Regime name filter");
+                System.out.println("Delete Tab - No Records for Last update date filter");
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Delete).click();Thread.sleep(1000);
+            }
+
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            
+            try {
+                boolean logo14 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo14 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                    driver.findElement(Delete).click();Thread.sleep(1000);
+                }
+            } catch (Exception e1) {
+                System.out.println("Delete Tab - Active Tab - No Records for Publication date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Delete).click();Thread.sleep(1000);
             }
@@ -646,26 +724,26 @@ public class EUadvfilterPage {
             } catch (Exception e1) {
                 System.out.println("Delete Tab - No Records for Type filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(Delete).click();Thread.sleep(1000);
+                driver.findElement(Delete).click();Thread.sleep(2000);
             }
 
             //DELETE TAB ALL FILTERS
             driver.findElement(Filter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -696,13 +774,10 @@ public class EUadvfilterPage {
                 System.out.println("No Data in New Tab");
             }
         } catch (Exception e) {
-            driver.findElement(New).click();Thread.sleep(1000);
-
             driver.findElement(Filter).click();
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo9 == true) {
@@ -710,18 +785,16 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(3000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(New).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("New tab - No Records for Id Type filter");
+                System.out.println("New Tab - No Records for Citizenship country filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(New).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo10 = driver.findElement(Downloadicon).isDisplayed();
@@ -730,19 +803,19 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(New).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("New tab - No Records for Designated date filter");
+                System.out.println("New Tab - No Records for Designated date filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(New).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo12 == true) {
@@ -750,19 +823,19 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(New).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("New tab - No Records for Program source filter");
+                System.out.println("New Tab - No Records for Entry into force date filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(New).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo13 == true) {
@@ -770,12 +843,31 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(New).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("New tab - No Records for Regime name filter");
+                System.out.println("New Tab - No Records for Last Update date filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(New).click();Thread.sleep(1000);
+            }
+
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            
+            try {
+                boolean logo14 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo14 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                }
+            } catch (Exception e1) {
+                System.out.println("New Tab - Active Tab - No Records for Publication date filter");
+                driver.findElement(Clearfilter).click();
             }
 
             driver.findElement(Filter).click();
@@ -790,31 +882,29 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(New).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("New tab - No Records for Type filter");
+                System.out.println("New Tab - No Records for Type filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(New).click();Thread.sleep(1000);
             }
 
             //NEW TAB ALL FILTERS
             driver.findElement(Filter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -825,13 +915,11 @@ public class EUadvfilterPage {
             if (logo9 == true) {
                 driver.findElement(Downloadicon).click();
                 driver.findElement(Tab).click();Thread.sleep(4000);
-                driver.findElement(Clearfilter).click(); 
-                driver.findElement(New).click();Thread.sleep(1000);  
+                driver.findElement(Clearfilter).click();   
             }
         } catch (Exception e1) {
             System.out.println("New tab - No Records for All filter");
             driver.findElement(Clearfilter).click();
-            driver.findElement(New).click();Thread.sleep(1000);
         }
         }
         // AMEND TAB
@@ -841,13 +929,10 @@ public class EUadvfilterPage {
                 System.out.println("No Data in Amend Tab");
             }
         } catch (Exception e) {
-            driver.findElement(Amend).click();Thread.sleep(1000);
-
             driver.findElement(Filter).click();
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo9 == true) {
@@ -855,20 +940,16 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(3000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(Amend).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Amend Tab - No Records for Id Type filter");
+                System.out.println("Amend Tab - No Records for Citizenship country filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(Amend).click();Thread.sleep(1000);
-
             }
 
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();
             Thread.sleep(3000);
             try {
@@ -878,21 +959,19 @@ public class EUadvfilterPage {
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
-                    driver.findElement(Amend).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
                 System.out.println("Amend Tab - No Records for Designated date filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(Amend).click();Thread.sleep(1000);
-
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo12 == true) {
@@ -901,20 +980,20 @@ public class EUadvfilterPage {
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(Amend).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Amend Tab - No Records for Program source filter");
+                System.out.println("Amend Tab - No Records for Entry into force date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Amend).click();Thread.sleep(1000);
-
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo13 == true) {
@@ -923,13 +1002,34 @@ public class EUadvfilterPage {
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(Amend).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Amend Tab - No Records for Regime name filter");
+                System.out.println("Amend Tab - No Records for Last update date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Amend).click();Thread.sleep(1000);
+            }
 
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            
+            try {
+                boolean logo14 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo14 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                    driver.findElement(Amend).click();Thread.sleep(1000);
+                }
+            } catch (Exception e1) {
+                System.out.println("Amend Tab - Active Tab - No Records for Publication date filter");
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Amend).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
@@ -945,32 +1045,30 @@ public class EUadvfilterPage {
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(Amend).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
                 System.out.println("Amend Tab - No Records for Type filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Amend).click();Thread.sleep(1000);
-
             }
 
             //AMEND TAB ALL FILTERS
             driver.findElement(Filter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -1003,10 +1101,9 @@ public class EUadvfilterPage {
             driver.findElement(DDelete).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo9 == true) {
@@ -1015,19 +1112,17 @@ public class EUadvfilterPage {
                     Thread.sleep(3000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(DDelete).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Delete - No Records for Id Type filter");
+                System.out.println("Delta Delete Tab - No Records for Citizenship country filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DDelete).click();Thread.sleep(1000);
-
             }
 
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();
             Thread.sleep(3000);
             try {
@@ -1038,19 +1133,20 @@ public class EUadvfilterPage {
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(DDelete).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Delete - No Records for Designated date filter");
+                System.out.println("Delta Delete Tab - No Records for Designated date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DDelete).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo12 == true) {
@@ -1059,20 +1155,20 @@ public class EUadvfilterPage {
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(DDelete).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Delete - No Records for Program source filter");
+                System.out.println("Delta Delete Tab - No Records for Entry into force date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DDelete).click();Thread.sleep(1000);
-
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo13 == true) {
@@ -1081,13 +1177,34 @@ public class EUadvfilterPage {
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(DDelete).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Delete - No Records for Regime name filter");
+                System.out.println("Delta Delete Tab - No Records for Last update date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DDelete).click();Thread.sleep(1000);
+            }
 
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            
+            try {
+                boolean logo14 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo14 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                    driver.findElement(DDelete).click();Thread.sleep(1000);
+                }
+            } catch (Exception e1) {
+                System.out.println("Delta Delete Tab - Active Tab - No Records for Publication date filter");
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DDelete).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
@@ -1103,32 +1220,30 @@ public class EUadvfilterPage {
                     Thread.sleep(4000);
                     driver.findElement(Clearfilter).click();
                     driver.findElement(DDelete).click();Thread.sleep(1000);
-
                 }
             } catch (Exception e1) {
-                System.out.println("Delete Delete - No Records for Type filter");
+                System.out.println("Delta Delete Tab - No Records for Type filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DDelete).click();Thread.sleep(1000);
-
             }
 
             //Delta Delete TAB ALL FILTERS
             driver.findElement(Filter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -1144,7 +1259,7 @@ public class EUadvfilterPage {
  
             }
         } catch (Exception e1) {
-            System.out.println("Delete Delete - No Records for All filter");
+            System.out.println("Delta Delete - No Records for All filter");
             driver.findElement(Clearfilter).click();
             driver.findElement(DDelete).click();Thread.sleep(1000);
 
@@ -1161,10 +1276,9 @@ public class EUadvfilterPage {
             driver.findElement(Stable).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo9 == true) {
@@ -1175,7 +1289,7 @@ public class EUadvfilterPage {
                     driver.findElement(Stable).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Stable Tab - No Records for Id Type filter");
+                System.out.println("Stable Tab - No Records for Citizenship filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Stable).click();Thread.sleep(1000);
             }
@@ -1183,7 +1297,7 @@ public class EUadvfilterPage {
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();
             Thread.sleep(3000);
             try {
@@ -1202,30 +1316,34 @@ public class EUadvfilterPage {
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo12 == true) {
                     driver.findElement(Downloadicon).click();
                     driver.findElement(Tab).click();
                     Thread.sleep(4000);
-                    driver.findElement(Clearfilter).click();
-                    driver.findElement(Stable).click();Thread.sleep(1000);
+                    driver.findElement(Stable).click();
+                    driver.findElement(Error).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Stable Tab - No Records for Program source filter");
+                System.out.println("Stable Tab - No Records for Entry in to force date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Stable).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo13 == true) {
@@ -1236,7 +1354,30 @@ public class EUadvfilterPage {
                     driver.findElement(Stable).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Stable Tab - No Records for Regime name filter");
+                System.out.println("Stable Tab - No Records for Lat update date filter");
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Stable).click();Thread.sleep(1000);
+            }
+
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            
+            try {
+                boolean logo14 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo14 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                    driver.findElement(Stable).click();Thread.sleep(1000);
+                }
+            } catch (Exception e1) {
+                System.out.println("Stable Tab - Active Tab - No Records for Publication date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(Stable).click();Thread.sleep(1000);
             }
@@ -1263,21 +1404,21 @@ public class EUadvfilterPage {
 
             //STABLE TAB ALL FILTERS
             driver.findElement(Filter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -1307,10 +1448,9 @@ public class EUadvfilterPage {
             driver.findElement(DError).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();
-            driver.findElement(Idtype).click();
+            driver.findElement(Citizencountry).click();
             driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo9 == true) {
@@ -1321,7 +1461,7 @@ public class EUadvfilterPage {
                     driver.findElement(DError).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Deleta Error - No Records for Id Type filter");
+                System.out.println("Delta Error Tab - No Records for  filter Citizenship country");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DError).click();Thread.sleep(1000);
             }
@@ -1329,7 +1469,7 @@ public class EUadvfilterPage {
             driver.findElement(Filter).click();
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
+            driver.findElement(Designatedate).sendKeys(designatedate);
             driver.findElement(Apply).click();
             Thread.sleep(3000);
             try {
@@ -1342,16 +1482,18 @@ public class EUadvfilterPage {
                     driver.findElement(DError).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Deleta Error - No Records for Designated date filter");
+                System.out.println("Delta Error Tab - No Records for Designated date filter");
                 driver.findElement(Clearfilter).click();
-                driver.findElement(DError).click();Thread.sleep(1000);
+                driver.findElement(Delete).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo12 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo12 == true) {
@@ -1362,16 +1504,18 @@ public class EUadvfilterPage {
                     driver.findElement(DError).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Deleta Error - No Records for Program source filter");
+                System.out.println("Delta Error Tab - No Records for Entry in to force date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DError).click();Thread.sleep(1000);
             }
 
             driver.findElement(Filter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Selectall).click();
-            driver.findElement(Apply).click();
-            Thread.sleep(3000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
             try {
                 boolean logo13 = driver.findElement(Downloadicon).isDisplayed();
                 if (logo13 == true) {
@@ -1382,7 +1526,30 @@ public class EUadvfilterPage {
                     driver.findElement(DError).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Deleta Error - No Records for Regime name filter");
+                System.out.println("Delta Error Tab - No Records for Last update date filter");
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DError).click();Thread.sleep(1000);
+            }
+
+            driver.findElement(Filter).click();
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            
+            try {
+                boolean logo14 = driver.findElement(Downloadicon).isDisplayed();
+                if (logo14 == true) {
+                    driver.findElement(Downloadicon).click();
+                    driver.findElement(Tab).click();
+                    Thread.sleep(4000);
+                    driver.findElement(Clearfilter).click();
+                    driver.findElement(DError).click();Thread.sleep(1000);
+                }
+            } catch (Exception e1) {
+                System.out.println("Delta Error Tab - No Records for Publication date filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DError).click();Thread.sleep(1000);
             }
@@ -1402,28 +1569,28 @@ public class EUadvfilterPage {
                     driver.findElement(DError).click();Thread.sleep(1000);
                 }
             } catch (Exception e1) {
-                System.out.println("Deleta Error - No Records for Type filter");
+                System.out.println("Delta Error Tab - No Records for Type filter");
                 driver.findElement(Clearfilter).click();
                 driver.findElement(DError).click();Thread.sleep(1000);
             }
 
             //DELTA ERROR TAB ALL FILTERS
             driver.findElement(Filter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
             driver.findElement(Designateddate).click();
             driver.findElement(Designatedate).click();
-            driver.findElement(Designatedate).sendKeys(designateddate);
-            driver.findElement(Idtype).click();
-            driver.findElement(Idtypesearch).click();
-            driver.findElement(Idtypesearch).sendKeys(idtype);
-            driver.findElement(Idtypefilter).click();
-            driver.findElement(Programsource).click();
-            driver.findElement(Programsourcesearch).click();
-            driver.findElement(Programsourcesearch).sendKeys(programname);
-            driver.findElement(Programsourcefilter).click();
-            driver.findElement(Regimename).click();
-            driver.findElement(Regimenamesearch).click();
-            driver.findElement(Regimenamesearch).sendKeys(regimename);
-            driver.findElement(Regimenamefilter).click();
+            driver.findElement(Designatedate).sendKeys(designatedate);
+            driver.findElement(Entrydate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Publicationdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
             driver.findElement(Type).click();
             driver.findElement(TypeSearch).click();
             driver.findElement(TypeSearch).sendKeys(type);
@@ -1447,6 +1614,31 @@ public class EUadvfilterPage {
 
     public void check_download_status_3() throws InterruptedException 
     {
+        driver.findElement(Downloads).click();Thread.sleep(3000);
+        driver.findElement(Refresh).click();Thread.sleep(3000);
+        for (int i = 0;i<100;i++) {
+            driver.findElement(Refresh).click();Thread.sleep(5000);
+            try{
+                boolean stat = driver.findElement(Success).isDisplayed();
+                if (stat == true){
+                    driver.findElement(Download).click();
+                    try{
+                        boolean logo = driver.findElement(Status).isDisplayed();
+                        if (logo == true){
+                            System.out.println("Successfully download");
+                            break;
+                        }
+                    }
+                    catch(Exception e){
+                        // Done
+                    }
+                }
+            }
+            catch(Exception e){
+                // continue loop till get sucess
+            }
+            
+        }
 
     }
     

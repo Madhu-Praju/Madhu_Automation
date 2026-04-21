@@ -52,7 +52,7 @@ public class UKSANCTIONSadvfilterPage {
     private By Filter = By.xpath("(//button[@id='record-table-filter-btn'])");
 
     // UK SANCTIONS Filter Locators
-    private By Close = By.xpath("//button[text()='CLOSE']");
+    private By Cancel = By.xpath("//button[text()='CANCEL']");
     private By Clearall = By.xpath("//button[text()='CLEAR ALL']");
     private By Nofilter = By.xpath("//div[text()='No filters selected']");
     private By Nodata = By.xpath("//h5[text()='No data available']");
@@ -144,10 +144,6 @@ public class UKSANCTIONSadvfilterPage {
         driver.findElement(Pagination).click();Thread.sleep(2000);
         driver.findElement(Pagevalue).click();Thread.sleep(2000);
         driver.findElement(UKSanctions).click();Thread.sleep(3000);
-
-
-
-
     }
 
     public void apply_uksanctions_filter(String designateddate, String idtype, String programname, String regimename, String type, String id) throws InterruptedException 
@@ -164,7 +160,7 @@ public class UKSANCTIONSadvfilterPage {
             driver.findElement(Active).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();Thread.sleep(2000);
-            driver.findElement(Close).click();Thread.sleep(2000);
+            driver.findElement(Cancel).click();Thread.sleep(2000);
                 try 
                 {
                 boolean logo12 = driver.findElement(Filter).isDisplayed();

@@ -52,7 +52,7 @@ public class OFACadvfilterPage {
     private By Filter = By.xpath("(//button[@id='record-table-filter-btn'])");
 
     // OFAC Filter Locators
-    private By Close = By.xpath("//button[text()='CLOSE']");
+    private By Cancel = By.xpath("//button[text()='CANCEL']");
     private By Clearall = By.xpath("//button[text()='CLEAR ALL']");
     private By Nofilter = By.xpath("//div[text()='No filters selected']");
     private By Nodata = By.xpath("//h5[text()='No data available']");
@@ -144,7 +144,7 @@ public class OFACadvfilterPage {
     {
         driver.findElement(Pagination).click();Thread.sleep(1000);
         driver.findElement(Pagevalue).click();Thread.sleep(1000);
-        driver.findElement(OfacEn).click();Thread.sleep(5000);
+        driver.findElement(Ofac).click();Thread.sleep(5000);
         // driver.findElement(Downloads).click();Thread.sleep(4000);
         // driver.findElement(Download).click();Thread.sleep(7000);
         // driver.findElement(Refresh).click();
@@ -164,7 +164,7 @@ public class OFACadvfilterPage {
             driver.findElement(Active).click();Thread.sleep(1000);
 
             driver.findElement(Filter).click();Thread.sleep(2000);
-            driver.findElement(Close).click();Thread.sleep(2000);
+            driver.findElement(Cancel).click();Thread.sleep(2000);
                 try 
                 {
                 boolean logo12 = driver.findElement(Filter).isDisplayed();
@@ -300,25 +300,25 @@ public class OFACadvfilterPage {
             driver.findElement(Clearfilter).click();Thread.sleep(2000);
         }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Lastupdate).click();
-        //     driver.findElement(Startdate).click();
-        //     driver.findElement(Startdate).sendKeys(startdate);
-        //     driver.findElement(Enddate).click();
-        //     driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Active Tab");
-        //     System.out.println("No Records for last update date filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Active Tab");
+            System.out.println("No Records for last update date filter");
+            driver.findElement(Clearfilter).click();
+        }
 
             driver.findElement(Filter).click();Thread.sleep(2000);
             driver.findElement(Nationalcountry).click();
@@ -428,372 +428,394 @@ public class OFACadvfilterPage {
         }
 
 
-        // //ERROR TAB
-        // try {
-        //     boolean logo2 = driver.findElement(Error0).isDisplayed();
-        //     if(logo2 == true){
-        //         System.out.println("No Data in Error Tab");
-        //     }
-        // } catch(Exception e) {
-        //     driver.findElement(Error).click();Thread.sleep(1000);
+        //ERROR TAB
+        try {
+            boolean logo2 = driver.findElement(Error0).isDisplayed();
+            if(logo2 == true){
+                System.out.println("No Data in Error Tab");
+            }
+        } catch(Exception e) {
+            driver.findElement(Error).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Error).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Error Tab");
-        //     System.out.println("No Records for Address filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Error).click();Thread.sleep(1000);
-        // }
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Error).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Error Tab");
-        //     System.out.println("No Records for Citizenship filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Error).click();Thread.sleep(1000);
-        // }
-        // //     driver.findElement(Filter).click();Thread.sleep(2000);
-        // //     driver.findElement(Lastupdate).click();
-        // //     driver.findElement(Startdate).click();
-        // //     driver.findElement(Startdate).sendKeys(startdate);
-        // //     driver.findElement(Enddate).click();
-        // //     driver.findElement(Enddate).sendKeys(enddate);
-        // //     driver.findElement(Apply).click();Thread.sleep(3000);
-        // //     try {
-        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        // //     if (logo9 == true) {
-        // //         driver.findElement(Downloadicon).click();
-        // //         driver.findElement(Tab).click();Thread.sleep(4000);
-        // //         driver.findElement(Clearfilter).click();
-        // //         driver.findElement(Error).click();Thread.sleep(1000);   
-        // //     }
-        // // } catch (Exception e1) {
-        // //     System.out.println("Error Tab");
-        // //     System.out.println("No Records for Last update date filter");
-        // //     driver.findElement(Clearfilter).click();
-        // //     driver.findElement(Error).click();Thread.sleep(1000);
-        // // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Error).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Error Tab");
+            System.out.println("No Records for Address filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Error).click();Thread.sleep(1000);
+        }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Error).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Error Tab");
+            System.out.println("No Records for Citizenship filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Error).click();Thread.sleep(1000);
+        }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Error).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Error Tab");
+            System.out.println("No Records for Last update date filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Error).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Error).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Error Tab");
-        //     System.out.println("No Recors for National country filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Error).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Error).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Error Tab");
+            System.out.println("No Recors for National country filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Error).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Error).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Error Tab");
-        //     System.out.println("No Records for Program Name filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Error).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Error).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Error Tab");
+            System.out.println("No Records for Program Name filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Error).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Error).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Error Tab");
-        //     System.out.println("No Records for type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Error).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Error).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Error Tab");
+            System.out.println("No Records for type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Error).click();Thread.sleep(1000);
+        }
             
-        //     //ERROR TAB ALL FILTERS
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     // driver.findElement(Lastupdate).click();
-        //     // driver.findElement(Startdate).click();
-        //     // driver.findElement(Startdate).sendKeys(startdate);
-        //     // driver.findElement(Enddate).click();
-        //     // driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Error Tab");
-        //     System.out.println("No records for All filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        // }
+            //ERROR TAB ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            // driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Error Tab");
+            System.out.println("No records for All filter");
+            driver.findElement(Clearfilter).click();
+        }
+        }
 
-        // //DELETE TAB
-        // try {
-        //     boolean logo3 = driver.findElement(Delete0).isDisplayed();
-        //     if(logo3 == true){
-        //         System.out.println("No Data in Delete Tab");
-        //     }
-        // } catch(Exception e) {
-        //     driver.findElement(Delete).click();Thread.sleep(1000);
+        //DELETE TAB
+        try {
+            boolean logo3 = driver.findElement(Delete0).isDisplayed();
+            if(logo3 == true){
+                System.out.println("No Data in Delete Tab");
+            }
+        } catch(Exception e) {
+            driver.findElement(Delete).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Delete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delete Tab");
-        //     System.out.println("No Record for Address filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Delete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Delete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delete Tab");
+            System.out.println("No Record for Address filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Delete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Delete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delete Tab");
-        //     System.out.println("No Record for Citizenship filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Delete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Delete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delete Tab");
+            System.out.println("No Record for Citizenship filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Delete).click();Thread.sleep(1000);
+        }
 
-        // //     driver.findElement(Filter).click();Thread.sleep(2000);
-        // //     driver.findElement(Lastupdate).click();
-        // //     driver.findElement(Startdate).click();
-        // //     driver.findElement(Startdate).sendKeys(startdate);
-        // //     driver.findElement(Enddate).click();
-        // //     driver.findElement(Enddate).sendKeys(enddate);
-        // //     driver.findElement(Apply).click();Thread.sleep(3000);
-        // //     try {
-        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        // //     if (logo9 == true) {
-        // //         driver.findElement(Downloadicon).click();
-        // //         driver.findElement(Tab).click();Thread.sleep(4000);
-        // //         driver.findElement(Clearfilter).click();
-        // //         driver.findElement(Delete).click();Thread.sleep(1000);   
-        // //     }
-        // // } catch (Exception e1) {
-        // //     System.out.println("Delete Tab");
-        // //     System.out.println("No records for last update date filter");
-        // //     driver.findElement(Clearfilter).click();
-        // //     driver.findElement(Delete).click();Thread.sleep(1000);
-        // // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Delete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delete Tab");
+            System.out.println("No records for last update date filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Delete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Delete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delete Tab");
-        //     System.out.println("No Records for National filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Delete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Delete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delete Tab");
+            System.out.println("No Records for National filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Delete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Delete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delete Tab");
-        //     System.out.println("No records for Program name filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Delete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Delete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delete Tab");
+            System.out.println("No records for Program name filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Delete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Delete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delete Tab");
-        //     System.out.println("No Records for type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Delete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Delete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delete Tab");
+            System.out.println("No Records for type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Delete).click();Thread.sleep(1000);
+        }
             
-        //     //DELETE ALL FILTERS
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     // driver.findElement(Lastupdate).click();
-        //     // driver.findElement(Startdate).click();
-        //     // driver.findElement(Startdate).sendKeys(startdate);
-        //     // driver.findElement(Enddate).click();
-        //     // driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delete Tab");
-        //     System.out.println("No Records for all filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        // }
+            //DELETE ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            // driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delete Tab");
+            System.out.println("No Records for all filter");
+            driver.findElement(Clearfilter).click();
+        }
+        }
 
          driver.findElement(Delta).click();Thread.sleep(3000);
 
 
-        // //NEW TAB
-        // try {
-        //     boolean logo4 = driver.findElement(New0).isDisplayed();
-        //     if(logo4 == true){
-        //         System.out.println("No Data in New Tab");
-        //     }
-        // } catch(Exception e) {
-        //     driver.findElement(New).click();Thread.sleep(1000);
+        //NEW TAB
+        try {
+            boolean logo4 = driver.findElement(New0).isDisplayed();
+            if(logo4 == true){
+                System.out.println("No Data in New Tab");
+            }
+        } catch(Exception e) {
+            driver.findElement(New).click();Thread.sleep(1000);
+
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(New).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("New Tab");
+            System.out.println("No Recod for address filter");
+            driver.findElement(New).click();Thread.sleep(1000);
+        }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+             try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(New).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("New Tab");
+            System.out.println("No Records for citizenship filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(New).click();Thread.sleep(1000);
+        }
 
         //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(New).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("New Tab");
-        //     System.out.println("No Recod for address filter");
-        //     driver.findElement(New).click();Thread.sleep(1000);
-        // }
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
+        //     driver.findElement(Lastupdate).click();
+        //     driver.findElement(Startdate).click();
+        //     driver.findElement(Startdate).sendKeys(startdate);
+        //     driver.findElement(Enddate).click();
+        //     driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Apply).click();Thread.sleep(3000);
         //      try {
         //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
@@ -805,146 +827,165 @@ public class OFACadvfilterPage {
         //     }
         // } catch (Exception e1) {
         //     System.out.println("New Tab");
-        //     System.out.println("No Records for citizenship filter");
+        //     System.out.println("No records for last updatre date filter");
         //     driver.findElement(Clearfilter).click();
         //     driver.findElement(New).click();Thread.sleep(1000);
         // }
 
-        // //     driver.findElement(Filter).click();Thread.sleep(2000);
-        // //     driver.findElement(Lastupdate).click();
-        // //     driver.findElement(Startdate).click();
-        // //     driver.findElement(Startdate).sendKeys(startdate);
-        // //     driver.findElement(Enddate).click();
-        // //     driver.findElement(Enddate).sendKeys(enddate);
-        // //     driver.findElement(Apply).click();Thread.sleep(3000);
-        // //      try {
-        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        // //     if (logo9 == true) {
-        // //         driver.findElement(Downloadicon).click();
-        // //         driver.findElement(Tab).click();Thread.sleep(4000);
-        // //         driver.findElement(Clearfilter).click();
-        // //         driver.findElement(New).click();Thread.sleep(1000);   
-        // //     }
-        // // } catch (Exception e1) {
-        // //     System.out.println("New Tab");
-        // //     System.out.println("No records for last updatre date filter");
-        // //     driver.findElement(Clearfilter).click();
-        // //     driver.findElement(New).click();Thread.sleep(1000);
-        // // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+             try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(New).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("New Tab");
+            System.out.println("No records for national filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(New).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //      try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(New).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("New Tab");
-        //     System.out.println("No records for national filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(New).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+             try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(New).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("New Tab");
+            System.out.println("No records for program name");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(New).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //      try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(New).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("New Tab");
-        //     System.out.println("No records for program name");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(New).click();Thread.sleep(1000);
-        // }
-
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //      try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(New).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("New Tab");
-        //     System.out.println("No records for type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(New).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+             try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(New).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("New Tab");
+            System.out.println("No records for type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(New).click();Thread.sleep(1000);
+        }
             
-        //     //NEW ALL FILTERS
+            //NEW ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            // driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+             try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("New Tab");
+            System.out.println("No records for all filter");
+            driver.findElement(Clearfilter).click();
+        }
+        }
+
+        //AMEND TAB
+        try {
+            boolean logo5 = driver.findElement(Amend0).isDisplayed();
+            if(logo5 == true){
+                System.out.println("No Data in Amend Tab");
+            }
+        } catch(Exception e) {
+            driver.findElement(Amend).click();Thread.sleep(1000);
+
+            driver.findElement(Filter).click();Thread.sleep(2000); 
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Amend).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Amend Tab");
+            System.out.println("No Records for address filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Amend).click();Thread.sleep(1000);
+        }
+
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Amend).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Amend Tab");
+            System.out.println("No records for citizen filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Amend).click();Thread.sleep(1000);
+        }
+
         //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     // driver.findElement(Lastupdate).click();
-        //     // driver.findElement(Startdate).click();
-        //     // driver.findElement(Startdate).sendKeys(startdate);
-        //     // driver.findElement(Enddate).click();
-        //     // driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
+        //     driver.findElement(Lastupdate).click();
+        //     driver.findElement(Startdate).click();
+        //     driver.findElement(Startdate).sendKeys(startdate);
+        //     driver.findElement(Enddate).click();
+        //     driver.findElement(Enddate).sendKeys(enddate);
         //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //      try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("New Tab");
-        //     System.out.println("No records for all filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        // }
-
-        // //AMEND TAB
-        // try {
-        //     boolean logo5 = driver.findElement(Amend0).isDisplayed();
-        //     if(logo5 == true){
-        //         System.out.println("No Data in Amend Tab");
-        //     }
-        // } catch(Exception e) {
-        //     driver.findElement(Amend).click();Thread.sleep(1000);
-
-        //     driver.findElement(Filter).click();Thread.sleep(2000); 
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
+        //    try {
         //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
         //     if (logo9 == true) {
         //         driver.findElement(Downloadicon).click();
@@ -954,655 +995,614 @@ public class OFACadvfilterPage {
         //     }
         // } catch (Exception e1) {
         //     System.out.println("Amend Tab");
-        //     System.out.println("No Records for address filter");
+        //     System.out.println("No records for last update date filter");
         //     driver.findElement(Clearfilter).click();
         //     driver.findElement(Amend).click();Thread.sleep(1000);
         // }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Amend).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Amend Tab");
-        //     System.out.println("No records for citizen filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Amend).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Amend).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Amend Tab");
+            System.out.println("No records for national filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Amend).click();Thread.sleep(1000);
+        }
 
-        // //     driver.findElement(Filter).click();Thread.sleep(2000);
-        // //     driver.findElement(Lastupdate).click();
-        // //     driver.findElement(Startdate).click();
-        // //     driver.findElement(Startdate).sendKeys(startdate);
-        // //     driver.findElement(Enddate).click();
-        // //     driver.findElement(Enddate).sendKeys(enddate);
-        // //     driver.findElement(Apply).click();Thread.sleep(3000);
-        // //    try {
-        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        // //     if (logo9 == true) {
-        // //         driver.findElement(Downloadicon).click();
-        // //         driver.findElement(Tab).click();Thread.sleep(4000);
-        // //         driver.findElement(Clearfilter).click();
-        // //         driver.findElement(Amend).click();Thread.sleep(1000);   
-        // //     }
-        // // } catch (Exception e1) {
-        // //     System.out.println("Amend Tab");
-        // //     System.out.println("No records for last update date filter");
-        // //     driver.findElement(Clearfilter).click();
-        // //     driver.findElement(Amend).click();Thread.sleep(1000);
-        // // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Amend).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Amend Tab");
+            System.out.println("No records for program filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Amend).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Amend).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Amend Tab");
-        //     System.out.println("No records for national filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Amend).click();Thread.sleep(1000);
-        // }
-
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Amend).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Amend Tab");
-        //     System.out.println("No records for program filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Amend).click();Thread.sleep(1000);
-        // }
-
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Amend).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Amend Tab");
-        //     System.out.println("No records for type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Amend).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Amend).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Amend Tab");
+            System.out.println("No records for type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Amend).click();Thread.sleep(1000);
+        }
             
-        //     //AMEND ALL FILTERS
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     // driver.findElement(Lastupdate).click();
-        //     // driver.findElement(Startdate).click();
-        //     // driver.findElement(Startdate).sendKeys(startdate);
-        //     // driver.findElement(Enddate).click();
-        //     // driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Amend Tab");
-        //     System.out.println("No record for all filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        // }
+            //AMEND ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            // driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Amend Tab");
+            System.out.println("No record for all filter");
+            driver.findElement(Clearfilter).click();
+        }
+        }
 
 
-        // //DELTA DELETE TAB
-        // try {
-        //     boolean logo6 = driver.findElement(DDelete0).isDisplayed();
-        //     if(logo6 == true){
-        //         System.out.println("No Data in Delta Delete Tab");
-        //     }
-        // } catch(Exception e) {
-        //     driver.findElement(DDelete).click();Thread.sleep(1000);
+        //DELTA DELETE TAB
+        try {
+            boolean logo6 = driver.findElement(DDelete0).isDisplayed();
+            if(logo6 == true){
+                System.out.println("No Data in Delta Delete Tab");
+            }
+        } catch(Exception e) {
+            driver.findElement(DDelete).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000); 
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DDelete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Delete Tab");
-        //     System.out.println("No records for address filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DDelete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000); 
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DDelete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Delete Tab");
+            System.out.println("No records for address filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DDelete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DDelete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Delete Tab");
-        //     System.out.println("No record for citizenship filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DDelete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DDelete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Delete Tab");
+            System.out.println("No record for citizenship filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DDelete).click();Thread.sleep(1000);
+        }
 
-        // //     driver.findElement(Filter).click();Thread.sleep(2000);
-        // //     driver.findElement(Lastupdate).click();
-        // //     driver.findElement(Startdate).click();
-        // //     driver.findElement(Startdate).sendKeys(startdate);
-        // //     driver.findElement(Enddate).click();
-        // //     driver.findElement(Enddate).sendKeys(enddate);
-        // //     driver.findElement(Apply).click();Thread.sleep(3000);
-        // //     try {
-        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        // //     if (logo9 == true) {
-        // //         driver.findElement(Downloadicon).click();
-        // //         driver.findElement(Tab).click();Thread.sleep(4000);
-        // //         driver.findElement(Clearfilter).click();
-        // //         driver.findElement(DDelete).click();Thread.sleep(1000);   
-        // //     }
-        // // } catch (Exception e1) {
-        // //     System.out.println("Delta Delete Tab");
-        // //     System.out.println("No recoprds for last update date filter");
-        // //     driver.findElement(Clearfilter).click();
-        // //     driver.findElement(DDelete).click();Thread.sleep(1000);
-        // // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DDelete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Delete Tab");
+            System.out.println("No recoprds for last update date filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DDelete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DDelete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Delete Tab");
-        //     System.out.println("No records for national filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DDelete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DDelete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Delete Tab");
+            System.out.println("No records for national filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DDelete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DDelete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Delete Tab");
-        //     System.out.println("No records for program filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DDelete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DDelete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Delete Tab");
+            System.out.println("No records for program filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DDelete).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DDelete).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Delete Tab");
-        //     System.out.println("No records for type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DDelete).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DDelete).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Delete Tab");
+            System.out.println("No records for type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DDelete).click();Thread.sleep(1000);
+        }
             
-        //     //DELTA DELETE ALL FILTERS
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     // driver.findElement(Lastupdate).click();
-        //     // driver.findElement(Startdate).click();
-        //     // driver.findElement(Startdate).sendKeys(startdate);
-        //     // driver.findElement(Enddate).click();
-        //     // driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Delete Tab");
-        //     System.out.println("No records for all filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        // }
+            //DELTA DELETE ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            // driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Delete Tab");
+            System.out.println("No records for all filter");
+            driver.findElement(Clearfilter).click();
+        }
+        }
 
-        // //STABLE TAB
-        // try {
-        //     boolean logo7 = driver.findElement(Stable0).isDisplayed();
-        //     if(logo7 == true){
-        //         System.out.println("No Data in Stable Tab");
-        //     }
-        // } catch(Exception e) {
-        //     driver.findElement(Stable).click();Thread.sleep(1000);
+        //STABLE TAB
+        try {
+            boolean logo7 = driver.findElement(Stable0).isDisplayed();
+            if(logo7 == true){
+                System.out.println("No Data in Stable Tab");
+            }
+        } catch(Exception e) {
+            driver.findElement(Stable).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Stable).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Stable Tab");
-        //     System.out.println("No Record for address filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Stable).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Stable).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Stable Tab");
+            System.out.println("No Record for address filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Stable).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Stable).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Stable Tab");
-        //     System.out.println("No record for citizenship filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Stable).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Stable).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Stable Tab");
+            System.out.println("No record for citizenship filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Stable).click();Thread.sleep(1000);
+        }
 
-        // //     driver.findElement(Filter).click();Thread.sleep(2000);
-        // //     driver.findElement(Lastupdate).click();
-        // //     driver.findElement(Startdate).click();
-        // //     driver.findElement(Startdate).sendKeys(startdate);
-        // //     driver.findElement(Enddate).click();
-        // //     driver.findElement(Enddate).sendKeys(enddate);
-        // //     driver.findElement(Apply).click();Thread.sleep(3000);
-        // //     try {
-        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        // //     if (logo9 == true) {
-        // //         driver.findElement(Downloadicon).click();
-        // //         driver.findElement(Tab).click();Thread.sleep(4000);
-        // //         driver.findElement(Clearfilter).click();
-        // //         driver.findElement(Stable).click();Thread.sleep(1000);   
-        // //     }
-        // // } catch (Exception e1) {
-        // //     System.out.println("Stable Tab");
-        // //     System.out.println("No records for last update type filter");
-        // //     driver.findElement(Clearfilter).click();
-        // //     driver.findElement(Stable).click();Thread.sleep(1000);
-        // // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Stable).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Stable Tab");
+            System.out.println("No records for last update type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Stable).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Stable).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Stable Tab");
-        //     System.out.println("No record for national filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Stable).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Stable).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Stable Tab");
+            System.out.println("No record for national filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Stable).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Stable).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Stable Tab");
-        //     System.out.println("No record for program filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Stable).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Stable).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Stable Tab");
+            System.out.println("No record for program filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Stable).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(Stable).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Stable Tab");
-        //     System.out.println("No record for type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(Stable).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(Stable).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Stable Tab");
+            System.out.println("No record for type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(Stable).click();Thread.sleep(1000);
+        }
             
-        //     //STABLE ALL FILTERS
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     // driver.findElement(Lastupdate).click();
-        //     // driver.findElement(Startdate).click();
-        //     // driver.findElement(Startdate).sendKeys(startdate);
-        //     // driver.findElement(Enddate).click();
-        //     // driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Stable Tab");
-        //     System.out.println("No record for all filter");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        // }
+            //STABLE ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            // driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Stable Tab");
+            System.out.println("No record for all filter");
+            driver.findElement(Clearfilter).click();
+        }
+        }
 
 
-        // //DELTA ERROR TAB
-        // try {
-        //     boolean logo8 = driver.findElement(DError0).isDisplayed();
-        //     if(logo8 == true){
-        //         System.out.println("No Data in Delta Error Tab");
-        //     }
-        // } catch(Exception e) {
-        //     driver.findElement(DError).click();Thread.sleep(1000);
+        //DELTA ERROR TAB
+        try {
+            boolean logo8 = driver.findElement(DError0).isDisplayed();
+            if(logo8 == true){
+                System.out.println("No Data in Delta Error Tab");
+            }
+        } catch(Exception e) {
+            driver.findElement(DError).click();Thread.sleep(1000);
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DError).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Error Tab");
-        //     System.out.println("No record for address filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DError).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DError).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Error Tab");
+            System.out.println("No record for address filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DError).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DError).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Error Tab");
-        //     System.out.println("No record for citizenship filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DError).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Citizencountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DError).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Error Tab");
+            System.out.println("No record for citizenship filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DError).click();Thread.sleep(1000);
+        }
 
-        // //     driver.findElement(Filter).click();Thread.sleep(2000);
-        // //     driver.findElement(Lastupdate).click();
-        // //     driver.findElement(Startdate).click();
-        // //     driver.findElement(Startdate).sendKeys(startdate);
-        // //     driver.findElement(Enddate).click();
-        // //     driver.findElement(Enddate).sendKeys(enddate);
-        // //     driver.findElement(Apply).click();Thread.sleep(3000);
-        // //     try {
-        // //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        // //     if (logo9 == true) {
-        // //         driver.findElement(Downloadicon).click();
-        // //         driver.findElement(Tab).click();Thread.sleep(4000);
-        // //         driver.findElement(Clearfilter).click();
-        // //         driver.findElement(DError).click();Thread.sleep(1000);   
-        // //     }
-        // // } catch (Exception e1) {
-        // //     System.out.println("Delta Error Tab");
-        // //     System.out.println("No record for last update date filter");
-        // //     driver.findElement(Clearfilter).click();
-        // //     driver.findElement(DError).click();Thread.sleep(1000);
-        // // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Lastupdate).click();
+            driver.findElement(Startdate).click();
+            driver.findElement(Startdate).sendKeys(startdate);
+            driver.findElement(Enddate).click();
+            driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DError).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Error Tab");
+            System.out.println("No record for last update date filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DError).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DError).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Error Tab");
-        //     System.out.println("No record for national filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DError).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DError).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Error Tab");
+            System.out.println("No record for national filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DError).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DError).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("No record for program filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DError).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Programname).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DError).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("No record for program filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DError).click();Thread.sleep(1000);
+        }
 
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(Type).click();
-        //     driver.findElement(Selectall).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();
-        //         driver.findElement(DError).click();Thread.sleep(1000);   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Error Tab");
-        //     System.out.println("No record for type filter");
-        //     driver.findElement(Clearfilter).click();
-        //     driver.findElement(DError).click();Thread.sleep(1000);
-        // }
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(Type).click();
+            driver.findElement(Selectall).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();
+                driver.findElement(DError).click();Thread.sleep(1000);   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Error Tab");
+            System.out.println("No record for type filter");
+            driver.findElement(Clearfilter).click();
+            driver.findElement(DError).click();Thread.sleep(1000);
+        }
             
-        //     //DELTA ERROR ALL FILTERS
-        //     driver.findElement(Filter).click();Thread.sleep(2000);
-        //     driver.findElement(AddressCountry).click();
-        //     driver.findElement(AddressSearch).click();
-        //     driver.findElement(AddressSearch).sendKeys(address);
-        //     driver.findElement(Addresfilter).click();
-        //     driver.findElement(Citizencountry).click();
-        //     driver.findElement(CitizenSearch).click();
-        //     driver.findElement(CitizenSearch).sendKeys(citizenship);
-        //     driver.findElement(Citizenfilter).click();
-        //     // driver.findElement(Lastupdate).click();
-        //     // driver.findElement(Startdate).click();
-        //     // driver.findElement(Startdate).sendKeys(startdate);
-        //     // driver.findElement(Enddate).click();
-        //     //driver.findElement(Enddate).sendKeys(enddate);
-        //     driver.findElement(Nationalcountry).click();
-        //     driver.findElement(NationalSearch).click();
-        //     driver.findElement(NationalSearch).sendKeys(nationality);
-        //     driver.findElement(Nationalfilter).click();
-        //     driver.findElement(Programname).click();
-        //     driver.findElement(ProgramSearch).click();
-        //     driver.findElement(ProgramSearch).sendKeys(program);
-        //     driver.findElement(Programfilter).click();
-        //     driver.findElement(Type).click();
-        //     driver.findElement(TypeSearch).click();
-        //     driver.findElement(TypeSearch).sendKeys(type);
-        //     driver.findElement(Typefilter).click();
-        //     driver.findElement(Apply).click();Thread.sleep(3000);
-        //     try {
-        //     boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
-        //     if (logo9 == true) {
-        //         driver.findElement(Downloadicon).click();
-        //         driver.findElement(Tab).click();Thread.sleep(4000);
-        //         driver.findElement(Clearfilter).click();   
-        //     }
-        // } catch (Exception e1) {
-        //     System.out.println("Delta Error Tab");
-        //     System.out.println("No record for all filer");
-        //     driver.findElement(Clearfilter).click();
-        // }
-        //  }
+            //DELTA ERROR ALL FILTERS
+            driver.findElement(Filter).click();Thread.sleep(2000);
+            driver.findElement(AddressCountry).click();
+            driver.findElement(AddressSearch).click();
+            driver.findElement(AddressSearch).sendKeys(address);
+            driver.findElement(Addresfilter).click();
+            driver.findElement(Citizencountry).click();
+            driver.findElement(CitizenSearch).click();
+            driver.findElement(CitizenSearch).sendKeys(citizenship);
+            driver.findElement(Citizenfilter).click();
+            // driver.findElement(Lastupdate).click();
+            // driver.findElement(Startdate).click();
+            // driver.findElement(Startdate).sendKeys(startdate);
+            // driver.findElement(Enddate).click();
+            //driver.findElement(Enddate).sendKeys(enddate);
+            driver.findElement(Nationalcountry).click();
+            driver.findElement(NationalSearch).click();
+            driver.findElement(NationalSearch).sendKeys(nationality);
+            driver.findElement(Nationalfilter).click();
+            driver.findElement(Programname).click();
+            driver.findElement(ProgramSearch).click();
+            driver.findElement(ProgramSearch).sendKeys(program);
+            driver.findElement(Programfilter).click();
+            driver.findElement(Type).click();
+            driver.findElement(TypeSearch).click();
+            driver.findElement(TypeSearch).sendKeys(type);
+            driver.findElement(Typefilter).click();
+            driver.findElement(Apply).click();Thread.sleep(3000);
+            try {
+            boolean logo9 = driver.findElement(Downloadicon).isDisplayed();
+            if (logo9 == true) {
+                driver.findElement(Downloadicon).click();
+                driver.findElement(Tab).click();Thread.sleep(4000);
+                driver.findElement(Clearfilter).click();   
+            }
+        } catch (Exception e1) {
+            System.out.println("Delta Error Tab");
+            System.out.println("No record for all filer");
+            driver.findElement(Clearfilter).click();
+        }
+         }
       }
 
     public void check_download_status_1() throws InterruptedException 

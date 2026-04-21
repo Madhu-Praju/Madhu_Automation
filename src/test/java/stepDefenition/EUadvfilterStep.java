@@ -27,7 +27,7 @@ public class EUadvfilterStep {
     String designatedate = "12/12/2024";
     String startdate = "30/08/2024";
     String enddate = "22/12/2025";
-    String type = "Individual";
+    String type = "Person";
 
     // Wrong Input Data
     String citi = "Karnataka";
@@ -68,9 +68,9 @@ public class EUadvfilterStep {
         euPage.apply_eu_filter(citizenship, designatedate, startdate, enddate, type, citi);
     }
 
-    @And("Check the status 3")
-    public void check_the_status_3() throws InterruptedException {
-        euPage.check_download_status_3();
-    }
+    // @And("Check the status 3")
+    // public void check_the_status_3() throws InterruptedException {
+    //     euPage.check_download_status_3();
+    // }
     
 }

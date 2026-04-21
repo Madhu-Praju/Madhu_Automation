@@ -14,8 +14,9 @@ import io.qameta.allure.testng.AllureTestNg;
         features = {"src/test/resources/AppFeature/"},
         glue = {"stepDefenition", "AppHooks"},
         //tags = "@Applyingoffilter",
-       // tags = "@OFACADVANCEFILTER",
-        tags = "@UKSANCTIONSADVANCEFILTER",
+       tags = "@OFACADVANCEFILTER",
+        //tags = "@UKSANCTIONSADVANCEFILTER",
+        //tags = "@EUADVANCEFILTER",
         
 
         plugin = {"pretty",
